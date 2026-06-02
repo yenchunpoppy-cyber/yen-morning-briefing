@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Yen 每日早報</title>
+<style>
+/* ── Reset ── */
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+
+/* ── Color Tokens ── */
+:root{
+  --ink:        #1E2830;
+  --ink-2:      #3A3228;
+  --orchid:     #6B5F7A;
+  --orchid-lt:  #C4B8D1;
+  --orchid-bg:  #EDE8F4;
+  --orchid-pale:#F5F2F9;
+  --sage:       #5E7D6A;
+  --sage-lt:    #B8CFC0;
+  --sage-bg:    #E6EFE9;
+  --amber:      #8B6B3D;
+  --amber-lt:   #D4B896;
+  --amber-bg:   #F5EBD8;
+  --cream:      #FAF7F2;
+  --parchment:  #F2EDE4;
+  --border:     #DDD8CE;
+  --border-lt:  #EDE8E0;
+  --text-1:     #2A2520;
+  --text-2:     #5C5650;
+  --text-3:     #9A9088;
+  --sidebar-w:  260px;
+}
+
+/* ── Base ── */
+body{
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--parchment);
+  color: var(--text-1);
+  font-size: 16px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+a{color:var(--orchid);text-decoration:none;}
+
+/* ── Layout ── */
+.app{display:flex;min-height:100vh;}
+
+/* Sidebar */
+.sidebar{
+  width: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  z-index: 100;
+  overflow-y: auto;
+}
+.sidebar-logo{
+  padding: 1.75rem 1.5rem 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-logo-title{
+  font-size: 17px;
+  color: #F2EDE4;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+.sidebar-logo-sub{
+  font-size: 11px;
+  color: rgba(196,184,209,0.6);
+  letter-spacing: 1.5px;
+}
+.sidebar-section-label{
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(196,184,209,0.5);
+  padding: 1.25rem 1.5rem 0.5rem;
+}
+.date-list{padding: 0 0.75rem 1rem;}
+.date-item{
+  display: block;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+  color: rgba(242,237,228,0.75);
+  font-size: 14px;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+.date-item:hover{background: rgba(255,255,255,0.08); color:#F2EDE4;}
+.date-item.active{
+  background: var(--orchid-bg);
+  color: var(--orchid);
+  font-weight: 500;
+}
+.date-item .di-main{display:block; font-size:14px;}
+.date-item .di-sub{display:block; font-size:11px; opacity:0.6; margin-top:1px;}
+
+/* Main */
+.main{
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-height: 100vh;
+}
+
+/* Mobile header */
+.mobile-header{
+  display: none;
+  background: var(--ink);
+  color: #F2EDE4;
+  padding: 0.85rem 1.25rem;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.mobile-menu-btn{
+  background: none;
+  border: none;
+  color: #F2EDE4;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 2px 4px;
+  line-height: 1;
+}
+.mobile-title{font-size:16px; flex:1;}
+.mobile-date-nav{display:flex; gap:6px;}
+.mobile-date-nav button{
+  background: rgba(255,255,255,0.12);
+  border: none;
+  color: #F2EDE4;
+  border-radius: 6px;
+  width: 32px; height: 32px;
+  font-size: 16px;
+  cursor: pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* Overlay for mobile sidebar */
+.sidebar-overlay{
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 90;
+}
+
+/* Content header */
+.content-header{
+  background: var(--ink);
+  padding: 2.25rem 2.5rem 1.75rem;
+  position: relative;
+  overflow: hidden;
+}
+.content-header::before{
+  content:'';
+  position:absolute; right:-30px; top:-40px;
+  width:200px;height:200px;
+  border-radius:50%;
+  background:rgba(107,95,122,0.18);
+}
+.content-header::after{
+  content:'';
+  position:absolute; right:80px; bottom:-60px;
+  width:130px;height:130px;
+  border-radius:50%;
+  background:rgba(94,125,106,0.12);
+}
+.ch-eyebrow{
+  font-size:11px;letter-spacing:2.5px;
+  color:rgba(196,184,209,0.65);
+  margin-bottom:8px;
+}
+.ch-title{font-size:24px;color:#F2EDE4;letter-spacing:0.5px;margin-bottom:4px;}
+.ch-date{font-size:14px;color:rgba(242,237,228,0.5);margin-bottom:1.25rem;}
+.ch-pills{display:flex;gap:8px;flex-wrap:wrap;}
+.ch-pill{
+  font-size:12px;
+  padding:3px 14px;border-radius:30px;
+  border:1px solid rgba(196,184,209,0.3);
+  color:var(--orchid-lt);
+  letter-spacing:0.5px;
+}
+
+/* Section nav tabs */
+.section-nav{
+  background:var(--cream);
+  border-bottom:1px solid var(--border);
+  padding:0 2.5rem;
+  display:flex;gap:0;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.snav-btn{
+  font-size:13px;
+  color:var(--text-3);
+  padding:0.8rem 1rem;
+  border:none;background:none;cursor:pointer;
+  border-bottom:2px solid transparent;
+  white-space:nowrap;
+  transition:color 0.15s,border-color 0.15s;
+}
+.snav-btn:hover{color:var(--orchid);}
+.snav-btn.active{color:var(--orchid);border-bottom-color:var(--orchid);}
+
+/* Article */
+.article{padding:2rem 2.5rem 3rem;max-width:800px;}
+
+/* Section */
+.section{margin-bottom:3rem;}
+.section-header{
+  display:flex;align-items:baseline;gap:10px;
+  margin-bottom:1.25rem;
+  padding-bottom:0.65rem;
+  border-bottom:1px solid var(--border);
+}
+.sec-num{font-size:11px;letter-spacing:2px;color:var(--orchid);}
+.sec-title{font-size:18px;font-weight:400;color:var(--ink);}
+.sec-meta{font-size:12px;color:var(--text-3);margin-left:auto;}
+
+/* Cards */
+.card{
+  background:var(--cream);
+  border:1px solid var(--border-lt);
+  border-radius:10px;
+  padding:1.4rem 1.6rem;
+  margin-bottom:10px;
+}
+.card-tags{margin-bottom:10px;}
+.tag{
+  display:inline-block;
+  font-size:11px;letter-spacing:0.5px;
+  padding:2px 10px;border-radius:30px;
+  margin-right:6px;
+  font-weight:500;
+}
+.tag-orchid{background:var(--orchid-bg);color:var(--orchid);}
+.tag-sage  {background:var(--sage-bg);  color:var(--sage);}
+.tag-amber {background:var(--amber-bg); color:var(--amber);}
+.card-title{font-size:17px;font-weight:400;color:var(--ink);margin-bottom:8px;}
+.card-body{font-size:15px;color:var(--text-2);line-height:1.8;}
+.card-you{
+  margin-top:10px;
+  padding:0.75rem 1rem;
+  background:var(--orchid-pale);
+  border-radius:6px;
+  border-left:2px solid var(--orchid-lt);
+  font-size:14px;color:var(--orchid);line-height:1.7;
+}
+.card-you-label{font-size:11px;letter-spacing:1px;opacity:0.7;margin-bottom:3px;}
+.card-link{
+  display:inline-block;margin-top:12px;
+  font-size:12px;letter-spacing:0.3px;
+  color:var(--orchid);
+  border-bottom:1px solid var(--orchid-lt);padding-bottom:1px;
+}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;}
+
+/* Stock */
+.alert-box{
+  background:var(--amber-bg);border:1px solid var(--amber-lt);
+  border-radius:10px;padding:1.1rem 1.4rem;margin-bottom:12px;
+}
+.alert-label{font-size:11px;letter-spacing:1.5px;font-weight:500;color:var(--amber);margin-bottom:6px;}
+.alert-item{font-size:15px;color:var(--ink-2);padding:3px 0;display:flex;align-items:center;gap:8px;}
+.alert-item::before{content:'⚡';font-size:13px;}
+.stock-table{width:100%;border-collapse:collapse;font-size:15px;}
+.stock-table th{
+  font-size:11px;letter-spacing:1px;color:var(--text-3);
+  font-weight:500;text-align:left;padding:6px 12px;
+  border-bottom:1px solid var(--border);
+}
+.stock-table td{
+  padding:10px 12px;border-bottom:1px solid var(--border-lt);
+  color:var(--text-2);vertical-align:middle;
+}
+.stock-table tr:last-child td{border-bottom:none;}
+.stock-table td:first-child{color:var(--ink);font-weight:500;}
+.chip{font-size:12px;padding:2px 10px;border-radius:30px;}
+.chip-sage  {background:var(--sage-bg);  color:var(--sage);}
+.chip-amber {background:var(--amber-bg); color:var(--amber);}
+
+/* Energy */
+.energy-wrap{
+  background:var(--orchid-pale);
+  border:1px solid var(--orchid-lt);border-radius:12px;
+  padding:1.75rem;
+}
+.ganzhi-display{
+  font-size:20px;letter-spacing:4px;color:var(--orchid);margin-bottom:4px;
+}
+.ganzhi-hint{font-size:13px;color:var(--orchid);opacity:0.7;margin-bottom:1.5rem;}
+.energy-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:10px;margin-bottom:1.25rem;
+}
+.energy-item{
+  background:var(--cream);border-radius:8px;
+  border:1px solid var(--orchid-lt);padding:1rem 1.1rem;
+}
+.energy-label{font-size:11px;letter-spacing:1.2px;color:var(--orchid);font-weight:500;margin-bottom:6px;}
+.energy-text{font-size:14px;color:var(--text-2);line-height:1.7;}
+.action-box{
+  background:var(--cream);border-radius:8px;
+  border:1px solid var(--orchid-lt);border-left:3px solid var(--orchid);
+  border-top-left-radius:0;border-bottom-left-radius:0;
+  padding:1rem 1.25rem;
+}
+.action-label{font-size:11px;letter-spacing:1.5px;color:var(--orchid);font-weight:500;margin-bottom:6px;}
+.action-text{font-size:16px;color:var(--ink);line-height:1.65;}
+.action-sub{font-size:13px;color:var(--text-3);margin-top:4px;}
+
+/* Schedule */
+.schedule-table{width:100%;border-collapse:collapse;}
+.schedule-table th{
+  font-size:11px;letter-spacing:1px;color:var(--text-3);
+  font-weight:500;text-align:left;padding:6px 12px;
+  border-bottom:1px solid var(--border);
+}
+.schedule-table td{
+  padding:11px 12px;border-bottom:1px solid var(--border-lt);
+  vertical-align:top;
+}
+.schedule-table tr:last-child td{border-bottom:none;}
+.s-time{font-size:13px;color:var(--orchid);font-weight:500;white-space:nowrap;width:110px;}
+.s-act{font-size:15px;color:var(--ink);margin-bottom:3px;}
+.s-note{font-size:13px;color:var(--text-3);}
+.s-energy{font-size:13px;color:var(--text-3);}
+
+/* Warn */
+.warn-card{
+  background:var(--amber-bg);border:1px solid var(--amber-lt);
+  border-radius:8px;padding:0.9rem 1.2rem;
+  margin-bottom:12px;font-size:14px;color:var(--amber);
+}
+
+/* Quote */
+.quote-wrap{
+  background:var(--ink);border-radius:12px;
+  padding:2rem 2.25rem;margin-top:0.5rem;
+  position:relative;overflow:hidden;
+}
+.quote-wrap::before{
+  content:'';position:absolute;right:-20px;top:-20px;
+  width:120px;height:120px;border-radius:50%;
+  background:rgba(107,95,122,0.2);
+}
+.quote-eyebrow{font-size:11px;letter-spacing:2px;color:var(--orchid-lt);opacity:0.7;margin-bottom:1rem;}
+.quote-text{font-size:17px;color:rgba(242,237,228,0.9);line-height:2;letter-spacing:0.3px;}
+.quote-from{font-size:12px;color:rgba(242,237,228,0.3);margin-top:1.25rem;}
+
+/* Footer */
+.page-footer{
+  font-size:12px;color:var(--text-3);text-align:center;
+  padding:1.5rem 0 2rem;border-top:1px solid var(--border-lt);
+  margin:0 2.5rem;
+}
+
+/* Empty state */
+.empty-state{
+  padding:4rem 2.5rem;text-align:center;
+}
+.empty-state h2{font-size:20px;font-weight:400;color:var(--text-2);margin-bottom:8px;}
+.empty-state p{font-size:14px;color:var(--text-3);}
+
+/* ── Responsive ── */
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);transition:transform 0.25s ease;}
+  .sidebar.open{transform:translateX(0);}
+  .sidebar-overlay.open{display:block;}
+  .mobile-header{display:flex;}
+  .main{margin-left:0;}
+  .content-header{padding:1.5rem 1.25rem 1.25rem;}
+  .ch-title{font-size:20px;}
+  .section-nav{padding:0 1.25rem;}
+  .article{padding:1.5rem 1.25rem 2.5rem;}
+  .section-header{margin-bottom:1rem;}
+  .card{padding:1.1rem 1.2rem;}
+  .card-title{font-size:16px;}
+  .card-body{font-size:14px;}
+  .energy-wrap{padding:1.25rem;}
+  .energy-grid{grid-template-columns:1fr 1fr;}
+  .quote-wrap{padding:1.5rem 1.25rem;}
+  .quote-text{font-size:15px;}
+  .grid-2{grid-template-columns:1fr;}
+  .page-footer{margin:0 1.25rem;}
+  .schedule-table th:last-child,.schedule-table td:last-child{display:none;}
+}
+@media(max-width:480px){
+  .energy-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-title">Yen 每日早報</div>
+      <div class="sidebar-logo-sub">DAILY BRIEFING</div>
+    </div>
+    <div class="sidebar-section-label">歷史早報</div>
+    <div class="date-list" id="dateList"></div>
+  </aside>
+
+  <div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- Mobile header -->
+    <div class="mobile-header">
+      <button class="mobile-menu-btn" onclick="openSidebar()">☰</button>
+      <div class="mobile-title">每日早報</div>
+      <div class="mobile-date-nav">
+        <button onclick="prevDay()">‹</button>
+        <button onclick="nextDay()">›</button>
+      </div>
+    </div>
+
+    <!-- Dynamic content -->
+    <div id="pageContent"></div>
+
+  </main>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// 早報資料庫 — 每天由排程任務自動新增
+// ═══════════════════════════════════════════
+const BRIEFINGS = {
+  "2026-06-02": {
+    weekday: "星期二",
+    ganzhi: ["丙午年", "辛巳月", "丁酉日"],
+    calendar_note: "Google 行事曆連線需重新授權，請直接開啟行事曆確認今日安排。",
+    ai: [
+      {
+        tags: [["新上線","orchid"],["手作應用","sage"]],
+        title: "Claude Design",
+        body: "Anthropic 剛推出的 AI 設計工作空間，一句話 prompt 就能生成完整 Prototype、簡報、單頁網站、行銷素材，不需要開 Figma。",
+        you: "試著用它把「手工藝治療工作坊」概念視覺化，生成一頁式活動介紹頁，看薦骨有沒有被吸引。",
+        url: "https://grenade.tw/blog/ai-in-design-2026-tools/"
+      },
+      {
+        tags: [["免費組合","sage"],["品牌視覺","orchid"]],
+        title: "Google Stitch + Figma Make 組合",
+        body: "用 Stitch 探索概念方向（免費），Figma Make 把想法轉成可互動 Prototype，整套接近零成本。",
+        you: "沖繩行程的視覺規劃，或未來手作課程的品牌氛圍板，都可以這樣跑一遍。",
+        url: "https://rar.design/posts/ai-tools-for-designers-2026"
+      },
+      {
+        tags: [["非工程師也能用","amber"]],
+        title: "Claude Code — 打造自己的微工具",
+        body: "65% 的設計師在用，不是為了寫程式，而是打造「只屬於自己的微工具」：自動加 iPhone 邊框、批量調整版型、整理作品集圖片。",
+        you: "有任何重複性手工步驟讓你覺得煩？讓它幫你做一個專屬的小工具。",
+        url: "https://grenade.tw/blog/ai-in-design-2026-tools/"
+      }
+    ],
+    design: [
+      {
+        tags: [["2026 最強趨勢","amber"]],
+        title: "「人類痕跡」美學反擊 AI 完美感",
+        body: "當所有 AI 圖都太完美，「看起來是人做的」反而成為最高信任背書。手繪感、紙質、相機晃到的真實感正在反擊 AI 的虛假完美。",
+        you: "手工藝指紋、陶土紋路、串珠不對稱——這是稀缺性，不是缺陷。拍攝時少修一點，反而更有力量。",
+        url: "https://aliland-design.com/en/2026-graphic-design-trends-ai-visual-style/"
+      },
+      {
+        tags: [["職涯方向","orchid"]],
+        title: "設計師轉型：用工具 → 造工具",
+        body: "91% 設計師每週用 AI（去年 54%）。最被市場重視的，是把美感與判斷力轉化成可重複 workflow 的人。視覺系統建構力是黃金技能。",
+        you: "「藝術治療 × 手作」若發展出一套品牌視覺語言，就是下一波最有價值的設計能力。",
+        url: "https://grenade.tw/blog/ai-in-design-2026-tools/"
+      }
+    ],
+    stock_alert: [
+      "雷虎（8033）今日為抽籤日，請至券商 App 確認",
+      "合晶（6182）今日為抽籤日，請至券商 App 確認"
+    ],
+    stock_watch: [
+      { name:"0050",  chip:"sage",  note:"元大台灣 50" },
+      { name:"0056",  chip:"sage",  note:"元大高股息" },
+      { name:"台新金", chip:"amber", note:"合併新光金進行中" },
+      { name:"新光金", chip:"amber", note:"合併案後續留意" }
+    ],
+    energy: {
+      ganzhi: "丙午年　辛巳月　丁酉日",
+      hint: "丁火生戊土 · 酉金為食傷，適合輸出與表達",
+      items: [
+        { label:"情緒水位",    text:"丁火溫柔滋養大山，像坐在窗邊有陽光照進來的舒適感，不焦慮。情緒水位平穩偏暖。" },
+        { label:"薦骨訊號",    text:"適合「小小輸出」——拍一個過程影片、捏一個小東西、把想法說出口。等有興奮感的那個，就是今天方向。" },
+        { label:"天蠍洞察",    text:"今日深層主題：「被看見的渴望」——讓自己的創作被世界接收到，這個渴望是真實且值得的。" },
+        { label:"摩羯提醒",    text:"丁火輕柔，不適合定大計畫。「我應該要更有效率」這個念頭升起時，輕輕放下它就好。" },
+        { label:"與癸水伴侶",  text:"今天讓先生多說話，你負責接收——他的流動感正好能潤澤你的丁火之日。" },
+        { label:"與甲木孩子",  text:"今日酉金有點剋木，子蕨可能比較需要被「接住」。先給五分鐘全專注讚美，能量就穩定。" }
+      ],
+      action: "拿起一個你最近喜歡的材料，摸它 5 分鐘。",
+      action_sub: "不用做出什麼，就是摸。薦骨有反應，它自己知道接下來要做什麼。"
+    },
+    schedule: [
+      { time:"09:00–09:20", act:"閱讀早報 + 確認台股抽籤", note:"雷虎 / 合晶 今日抽籤",          energy:"清醒大腦，掌握全局" },
+      { time:"09:20–10:30", act:"試玩 Claude Design",       note:"把手作治療的概念輸入進去",    energy:"MG 薦骨回應式探索" },
+      { time:"10:30–11:00", act:"運動",                     note:"散步 / 瑜珈 / 伸展",          energy:"戊土大山接地氣" },
+      { time:"11:00–13:00", act:"手作時光",                  note:"陶土 或 串珠，哪個有感覺選哪個",energy:"食傷流動，做出來就是輸出" },
+      { time:"13:00–14:30", act:"午餐 + 午休",               note:"",                            energy:"大山充飽電" },
+      { time:"14:30–17:00", act:"自由探索",                  note:"沖繩規劃 / 作品集整理 / 研究", energy:"順著薦骨走" },
+      { time:"17:00 後",    act:"家庭時光",                  note:"",                            energy:"癸水滋潤大山" }
+    ],
+    quote: "大山不需要每天移動，\n她只需要讓對的東西在她身上生長。\n今天，你就是那座接受光照的山——\n不急著開花，只是好好地，暖著。"
+  }
+};
+
+// ═══════════════════════════════════════════
+// App State
+// ═══════════════════════════════════════════
+const dates = Object.keys(BRIEFINGS).sort().reverse();
+let currentIdx = 0;
+
+function openSidebar(){
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+function prevDay(){
+  if(currentIdx < dates.length-1){ currentIdx++; render(); }
+}
+function nextDay(){
+  if(currentIdx > 0){ currentIdx--; render(); }
+}
+function selectDate(idx){
+  currentIdx = idx;
+  render();
+  closeSidebar();
+}
+
+function buildDateList(){
+  const dl = document.getElementById('dateList');
+  dl.innerHTML = dates.map((d,i)=>{
+    const b = BRIEFINGS[d];
+    const parts = d.split('-');
+    const label = parts[1]+'月'+parts[2]+'日';
+    return `<button class="date-item${i===currentIdx?' active':''}" onclick="selectDate(${i})">
+      <span class="di-main">${label} ${b.weekday}</span>
+      <span class="di-sub">${b.ganzhi[2]}</span>
+    </button>`;
+  }).join('');
+}
+
+function tag(text, type){ return `<span class="tag tag-${type}">${text}</span>`; }
+function chip(text, type){ return `<span class="chip chip-${type}">待查詢</span>`; }
+
+function render(){
+  const dateKey = dates[currentIdx];
+  const b = BRIEFINGS[dateKey];
+  const parts = dateKey.split('-');
+  const dateLabel = `${parts[0]}年${parts[1]}月${parts[2]}日`;
+
+  // Build AI cards
+  const aiCards = b.ai.map(item=>`
+    <div class="card">
+      <div class="card-tags">${item.tags.map(([t,c])=>tag(t,c)).join('')}</div>
+      <div class="card-title">${item.title}</div>
+      <div class="card-body">${item.body}</div>
+      <div class="card-you"><div class="card-you-label">你的應用</div>${item.you}</div>
+      <a class="card-link" href="${item.url}" target="_blank">閱讀全文</a>
+    </div>`).join('');
+
+  // Build design cards
+  const designCards = `<div class="grid-2">${b.design.map(item=>`
+    <div class="card">
+      <div class="card-tags">${item.tags.map(([t,c])=>tag(t,c)).join('')}</div>
+      <div class="card-title">${item.title}</div>
+      <div class="card-body">${item.body}</div>
+      <div class="card-you"><div class="card-you-label">你的機會</div>${item.you}</div>
+      <a class="card-link" href="${item.url}" target="_blank">閱讀全文</a>
+    </div>`).join('')}</div>`;
+
+  // Stock alert
+  const alertItems = b.stock_alert.length
+    ? `<div class="alert-box">
+        <div class="alert-label">今日抽籤提醒</div>
+        ${b.stock_alert.map(a=>`<div class="alert-item">${a}</div>`).join('')}
+      </div>` : '';
+
+  // Stock table
+  const stockRows = b.stock_watch.map(s=>`
+    <tr>
+      <td>${s.name}</td>
+      <td>${chip('待查詢',s.chip)}</td>
+      <td style="font-size:13px;color:var(--text-3);">${s.note}</td>
+    </tr>`).join('');
+
+  // Energy items
+  const energyItems = b.energy.items.map(e=>`
+    <div class="energy-item">
+      <div class="energy-label">${e.label}</div>
+      <div class="energy-text">${e.text}</div>
+    </div>`).join('');
+
+  // Schedule rows
+  const scheduleRows = b.schedule.map(s=>`
+    <tr>
+      <td class="s-time">${s.time}</td>
+      <td>
+        <div class="s-act">${s.act}</div>
+        ${s.note ? `<div class="s-note">${s.note}</div>` : ''}
+      </td>
+      <td class="s-energy">${s.energy}</td>
+    </tr>`).join('');
+
+  // Calendar note
+  const calNote = b.calendar_note
+    ? `<div class="warn-card">📌 ${b.calendar_note}</div>` : '';
+
+  // Quote lines
+  const quoteLines = b.quote.split('\n').join('<br>');
+
+  document.getElementById('pageContent').innerHTML = `
+    <div class="content-header">
+      <div class="ch-eyebrow">DAILY BRIEFING · 數位執行長</div>
+      <div class="ch-title">Yen 的每日早報</div>
+      <div class="ch-date">${dateLabel}　${b.weekday}</div>
+      <div class="ch-pills">
+        ${b.ganzhi.map(g=>`<span class="ch-pill">${g}</span>`).join('')}
+      </div>
+    </div>
+
+    <nav class="section-nav">
+      <button class="snav-btn" onclick="scrollTo('s-ai')">🤖 AI 好物</button>
+      <button class="snav-btn" onclick="scrollTo('s-design')">🎨 設計動態</button>
+      <button class="snav-btn" onclick="scrollTo('s-stock')">📈 台股</button>
+      <button class="snav-btn" onclick="scrollTo('s-energy')">🔮 能量解析</button>
+      <button class="snav-btn" onclick="scrollTo('s-schedule')">📅 行程</button>
+    </nav>
+
+    <div class="article">
+
+      <div class="section" id="s-ai">
+        <div class="section-header">
+          <span class="sec-num">一</span>
+          <span class="sec-title">AI 好物報告</span>
+          <span class="sec-meta">設計師視角 · ${b.ai.length} 則</span>
+        </div>
+        ${aiCards}
+      </div>
+
+      <div class="section" id="s-design">
+        <div class="section-header">
+          <span class="sec-num">二</span>
+          <span class="sec-title">設計界動態</span>
+          <span class="sec-meta">趨勢 · ${b.design.length} 則</span>
+        </div>
+        ${designCards}
+      </div>
+
+      <div class="section" id="s-stock">
+        <div class="section-header">
+          <span class="sec-num">三</span>
+          <span class="sec-title">台股提醒</span>
+        </div>
+        ${alertItems}
+        <div class="card">
+          <div class="card-title" style="margin-bottom:4px;font-size:16px;">重點標的動態</div>
+          <div style="font-size:13px;color:var(--text-3);margin-bottom:12px;">
+            即時股價請至 <a href="https://tw.stock.yahoo.com" target="_blank">Yahoo 股市</a> 或券商 App 查詢
+          </div>
+          <table class="stock-table">
+            <thead><tr><th>標的</th><th>今日狀態</th><th>備註</th></tr></thead>
+            <tbody>${stockRows}</tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section" id="s-energy">
+        <div class="section-header">
+          <span class="sec-num">四</span>
+          <span class="sec-title">今日能量解析</span>
+          <span class="sec-meta">全息交叉報告</span>
+        </div>
+        <div class="energy-wrap">
+          <div style="font-size:11px;letter-spacing:2px;color:var(--orchid);opacity:0.7;margin-bottom:4px;">今日干支</div>
+          <div class="ganzhi-display">${b.energy.ganzhi}</div>
+          <div class="ganzhi-hint">${b.energy.hint}</div>
+          <div class="energy-grid">${energyItems}</div>
+          <div class="action-box">
+            <div class="action-label">今日行動微結構</div>
+            <div class="action-text">${b.energy.action}</div>
+            <div class="action-sub">${b.energy.action_sub}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="s-schedule">
+        <div class="section-header">
+          <span class="sec-num">五</span>
+          <span class="sec-title">今日建議行程</span>
+        </div>
+        ${calNote}
+        <div class="card">
+          <table class="schedule-table">
+            <thead><tr><th>時間</th><th>活動</th><th>能量說明</th></tr></thead>
+            <tbody>${scheduleRows}</tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section" id="s-quote">
+        <div class="section-header">
+          <span class="sec-num">—</span>
+          <span class="sec-title">今日給 Yen 的一句話</span>
+        </div>
+        <div class="quote-wrap">
+          <div class="quote-eyebrow">TODAY'S MESSAGE</div>
+          <div class="quote-text">${quoteLines}</div>
+          <div class="quote-from">by Claude · 數位執行長</div>
+        </div>
+      </div>
+
+      <div class="page-footer">
+        台股資訊請以官方平台為準 · 命理解析僅供內在參考 · 早報 by Claude
+      </div>
+    </div>`;
+
+  buildDateList();
+  window.scrollTo(0,0);
+}
+
+function scrollTo(id){
+  const el = document.getElementById(id);
+  if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
+}
+
+// Init
+render();
+</script>
+</body>
+</html>
