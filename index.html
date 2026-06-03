@@ -2,41 +2,610 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Yen 每日早報</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-html{-webkit-text-size-adjust:100%;}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
 :root{
-  --orchid:     #7B6B99;
-  --orchid-med: #A994C4;
-  --orchid-lt:  #D8CCF0;
-  --orchid-pale:#F4F0FC;
-  --orchid-bg:  #EDE7F9;
-  --sage:       #4E7260;
-  --sage-lt:    #B4CFBE;
-  --sage-pale:  #EDF5F0;
-  --amber:      #8B6B3D;
-  --amber-lt:   #D4B896;
-  --amber-pale: #FBF0E2;
-  --ink:        #2A2218;
-  --ink-2:      #4A3F32;
-  --cream:      #FFFDF9;
-  --parchment:  #F7F2EA;
-  --page-bg:    #F5EFE6;
-  --border:     #E2D9CC;
-  --border-lt:  #EEE8DF;
-  --text-1:     #2A2218;
-  --text-2:     #4A3F32;
-  --text-3:     #8A7E70;
-  --sidebar-w:  270px;
-  --serif: 'Noto Serif TC', 'Georgia', serif;
-  --sans:  'Noto Sans TC', -apple-system, sans-serif;
+  --orchid:#7B6B99;--orchid-med:#A994C4;--orchid-lt:#D8CCF0;
+  --orchid-pale:#F4F0FC;--orchid-bg:#EDE7F9;
+  --sage:#4E7260;--sage-lt:#B4CFBE;--sage-pale:#EDF5F0;
+  --amber:#8B6B3D;--amber-lt:#D4B896;--amber-pale:#FBF0E2;
+  --ink:#2A2218;--ink2:#3D3327;
+  --cream:#FFFDF9;--parchment:#F7F2EA;--page:#F5EFE6;
+  --border:#E2D9CC;--borderl:#EEE8DF;
+  --t1:#2A2218;--t2:#4A3F32;--t3:#8A7E70;
+  --sw:270px;
+  --serif:'Noto Serif TC','Georgia',serif;
+  --sans:'Noto Sans TC',-apple-system,sans-serif
 }
-body{font-family:var(--sans);background:var(--page-bg);color:var(--text-1);font-size:17px;line-height:1.75;min-height:100vh;}
-a{color:var(--orchid);text-decoration:none;}
-h1,h2,h3{font-family:var(--serif);}
+body{font-family:var(--sans);background:var(--page);color:var(--t1);font-size:20px;line-height:1.75;min-height:100vh}
+a{color:var(--orchid);text-decoration:none}
+
+/* ── Layout ── */
+.app{display:flex;min-height:100vh}
+.sidebar{
+  width:var(--sw);min-height:100vh;background:var(--cream);
+  border-right:1px solid var(--border);display:flex;flex-direction:column;
+  position:fixed;left:0;top:0;bottom:0;z-index:100;overflow-y:auto
+}
+.sb-brand{padding:1.75rem 1.5rem 1.25rem;border-bottom:1px solid var(--borderl)}
+.sb-icon{width:42px;height:42px;margin-bottom:10px;display:block}
+.sb-title{font-family:var(--serif);font-size:18px;color:var(--ink);letter-spacing:.5px;margin-bottom:3px}
+.sb-sub{font-size:12px;color:var(--t3);letter-spacing:2px}
+.sb-lbl{font-size:11px;letter-spacing:2.5px;color:var(--t3);padding:1.25rem 1.5rem .5rem;font-weight:500}
+.date-list{padding:0 .75rem 1rem}
+.di{display:block;padding:.65rem .75rem;border-radius:8px;cursor:pointer;color:var(--t2);font-size:15px;border:none;background:none;width:100%;text-align:left;transition:background .15s}
+.di:hover{background:var(--orchid-pale)}
+.di.active{background:var(--orchid-bg);color:var(--orchid)}
+.di .dim{display:block;font-size:15px;font-weight:500}
+.di .dis{display:block;font-size:13px;color:var(--t3);margin-top:1px}
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:90}
+.main{margin-left:var(--sw);flex:1;min-height:100vh}
+.mob-hdr{
+  display:none;background:var(--cream);border-bottom:1px solid var(--border);
+  padding:.85rem 1.25rem;align-items:center;gap:12px;
+  position:sticky;top:0;z-index:50
+}
+.mob-menu{background:none;border:none;font-size:24px;cursor:pointer;color:var(--ink);line-height:1}
+.mob-title{font-family:var(--serif);font-size:17px;flex:1;color:var(--ink)}
+.mob-nav{display:flex;gap:6px}
+.mob-nav button{background:var(--orchid-pale);border:1px solid var(--orchid-lt);color:var(--orchid);border-radius:6px;width:34px;height:34px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* ── Content Header ── */
+.c-hdr{background:var(--cream);border-bottom:1px solid var(--border);padding:2.5rem 3rem 2rem;position:relative;overflow:hidden}
+.hdr-deco{position:absolute;right:0;top:0;bottom:0;width:220px;opacity:.45;pointer-events:none}
+.hdr-eye{font-size:12px;letter-spacing:3px;color:var(--orchid-med);margin-bottom:10px}
+.hdr-title{font-family:var(--serif);font-size:33px;font-weight:600;color:var(--ink);letter-spacing:.5px;margin-bottom:6px;line-height:1.3}
+.hdr-date{font-size:16px;color:var(--t2);margin-bottom:1.25rem}
+.hdr-pills{display:flex;gap:8px;flex-wrap:wrap}
+.hdr-pill{font-size:13px;padding:4px 15px;border-radius:30px;border:1px solid var(--orchid-lt);color:var(--orchid);background:var(--orchid-pale);letter-spacing:.5px}
+
+/* ── Section nav ── */
+.sec-nav{background:var(--cream);border-bottom:1px solid var(--border);padding:0 3rem;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:0;z-index:40}
+.sn-btn{font-size:14px;color:var(--t3);padding:.9rem 1rem;border:none;background:none;cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s}
+.sn-btn:hover{color:var(--orchid)}
+.sn-btn.active{color:var(--orchid);border-bottom-color:var(--orchid)}
+
+/* ── Article ── */
+.article{padding:2.5rem 3rem 4rem;max-width:840px}
+
+/* ── Section ── */
+.section{margin-bottom:3.5rem}
+.sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding-bottom:.85rem;border-bottom:1.5px solid var(--borderl)}
+.sec-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-num{font-size:12px;letter-spacing:2.5px;color:var(--orchid)}
+.sec-ttl{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink)}
+.sec-meta{font-size:13px;color:var(--t3);margin-left:auto}
+
+/* ── Cards ── */
+.card{background:var(--cream);border:1px solid var(--borderl);border-radius:14px;padding:1.6rem 1.75rem;margin-bottom:12px}
+.ctags{margin-bottom:10px}
+.tag{display:inline-block;font-size:12px;letter-spacing:.5px;padding:3px 12px;border-radius:30px;margin-right:6px;font-weight:500}
+.tag-o{background:var(--orchid-bg);color:var(--orchid)}
+.tag-s{background:var(--sage-pale);color:var(--sage)}
+.tag-a{background:var(--amber-pale);color:var(--amber)}
+.cttl{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink);margin-bottom:10px;line-height:1.4}
+.cbody{font-size:19px;color:var(--t2);line-height:1.85}
+.cyou{margin-top:12px;padding:.9rem 1.1rem;background:var(--orchid-pale);border-radius:8px;border-left:3px solid var(--orchid-med);font-size:17px;color:var(--orchid);line-height:1.75}
+.cyou-lbl{font-size:12px;letter-spacing:1.5px;color:var(--orchid-med);margin-bottom:4px;font-weight:500}
+.clink{display:inline-block;margin-top:14px;font-size:14px;color:var(--orchid);border-bottom:1px solid var(--orchid-lt);padding-bottom:2px}
+.clink:hover{border-color:var(--orchid)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+
+/* ── Stock ── */
+.alert-box{background:var(--amber-pale);border:1px solid var(--amber-lt);border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:14px;display:flex;gap:12px;align-items:flex-start}
+.alert-ico{font-size:22px;flex-shrink:0;margin-top:1px}
+.alert-lbl{font-size:12px;letter-spacing:2px;font-weight:500;color:var(--amber);margin-bottom:6px}
+.alert-item{font-size:19px;color:var(--ink2);padding:2px 0}
+.stbl{width:100%;border-collapse:collapse;font-size:19px}
+.stbl th{font-size:13px;letter-spacing:1px;color:var(--t3);font-weight:500;text-align:left;padding:7px 14px;border-bottom:1px solid var(--border)}
+.stbl td{padding:11px 14px;border-bottom:1px solid var(--borderl);color:var(--t2)}
+.stbl tr:last-child td{border-bottom:none}
+.stbl td:first-child{color:var(--ink);font-weight:500}
+.chip{font-size:13px;padding:3px 11px;border-radius:20px}
+.chip-s{background:var(--sage-pale);color:var(--sage)}
+.chip-a{background:var(--amber-pale);color:var(--amber)}
+
+/* ── Energy ── */
+.en-wrap{background:var(--cream);border:1px solid var(--orchid-lt);border-radius:16px;padding:2rem;position:relative;overflow:hidden}
+.en-deco{position:absolute;right:-10px;top:-10px;opacity:.1;pointer-events:none}
+.gz-lbl{font-size:12px;letter-spacing:2.5px;color:var(--orchid-med);margin-bottom:6px}
+.gz-disp{font-family:var(--serif);font-size:24px;font-weight:500;color:var(--orchid);letter-spacing:5px;margin-bottom:5px}
+.gz-hint{font-size:15px;color:var(--t3);margin-bottom:1.5rem}
+.en-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-bottom:1.25rem}
+.en-item{background:var(--orchid-pale);border-radius:10px;border:1px solid var(--orchid-lt);padding:1.1rem 1.2rem}
+.en-lbl{font-size:12px;letter-spacing:1.5px;color:var(--orchid);font-weight:500;margin-bottom:7px}
+.en-txt{font-size:17px;color:var(--t2);line-height:1.75}
+.act-box{background:var(--orchid-pale);border-radius:10px;border:1px solid var(--orchid-lt);border-left:4px solid var(--orchid-med);border-top-left-radius:0;border-bottom-left-radius:0;padding:1.1rem 1.4rem}
+.act-lbl{font-size:12px;letter-spacing:2px;color:var(--orchid);font-weight:500;margin-bottom:7px}
+.act-txt{font-family:var(--serif);font-size:20px;color:var(--ink);line-height:1.65}
+.act-sub{font-size:15px;color:var(--t3);margin-top:5px}
+
+/* ── Schedule ── */
+.sch-tbl{width:100%;border-collapse:collapse}
+.sch-tbl th{font-size:13px;letter-spacing:1px;color:var(--t3);font-weight:500;text-align:left;padding:7px 14px;border-bottom:1px solid var(--border)}
+.sch-tbl td{padding:13px 14px;border-bottom:1px solid var(--borderl);vertical-align:top}
+.sch-tbl tr:last-child td{border-bottom:none}
+.st{font-size:14px;color:var(--orchid);font-weight:500;white-space:nowrap;width:120px}
+.sa{font-family:var(--serif);font-size:19px;color:var(--ink);margin-bottom:3px}
+.sn{font-size:14px;color:var(--t3)}
+.se{font-size:14px;color:var(--t3)}
+
+/* ── Warn ── */
+.warn{background:var(--amber-pale);border:1px solid var(--amber-lt);border-radius:10px;padding:1rem 1.3rem;margin-bottom:14px;font-size:17px;color:var(--amber)}
+
+/* ── Quote ── */
+.qt-wrap{background:var(--orchid-pale);border:1px solid var(--orchid-lt);border-radius:16px;padding:2.25rem 2.5rem;position:relative;overflow:hidden}
+.qt-deco{position:absolute;right:0;bottom:0;opacity:.1;pointer-events:none}
+.qt-eye{font-size:12px;letter-spacing:3px;color:var(--orchid-med);margin-bottom:1.25rem}
+.qt-txt{font-family:var(--serif);font-size:23px;color:var(--ink);line-height:2;letter-spacing:.3px}
+.qt-from{font-size:13px;color:var(--t3);margin-top:1.25rem}
+
+/* ── Bucket List ── */
+.bucket-wrap{background:var(--cream);border:1px solid var(--borderl);border-radius:14px;padding:1.75rem}
+.bl-add{display:flex;gap:10px;margin-bottom:1.25rem}
+.bl-inp{flex:1;border:1px solid var(--border);border-radius:8px;padding:.65rem 1rem;font-family:var(--sans);font-size:17px;color:var(--ink);background:var(--parchment);outline:none;transition:border-color .15s}
+.bl-inp:focus{border-color:var(--orchid-med)}
+.bl-add-btn{background:var(--orchid);color:#fff;border:none;border-radius:8px;padding:.65rem 1.25rem;font-family:var(--sans);font-size:17px;cursor:pointer;transition:opacity .15s;white-space:nowrap}
+.bl-add-btn:hover{opacity:.85}
+.bl-list{list-style:none}
+.bl-item{
+  display:flex;align-items:center;gap:12px;
+  padding:.85rem 1rem;border-radius:10px;
+  border:1px solid var(--borderl);background:var(--parchment);
+  margin-bottom:8px;cursor:grab;transition:background .15s,opacity .15s;
+  position:relative
+}
+.bl-item:hover{background:var(--orchid-pale);border-color:var(--orchid-lt)}
+.bl-item.done{opacity:.55}
+.bl-item.done .bl-text{text-decoration:line-through;color:var(--t3)}
+.bl-item.dragging{opacity:.4;cursor:grabbing}
+.bl-item.drag-over{border-color:var(--orchid-med);background:var(--orchid-pale)}
+.bl-drag{color:var(--t3);font-size:18px;cursor:grab;flex-shrink:0;user-select:none;line-height:1}
+.bl-cb{width:22px;height:22px;border-radius:6px;border:2px solid var(--orchid-lt);background:#fff;cursor:pointer;flex-shrink:0;appearance:none;-webkit-appearance:none;position:relative;transition:all .15s}
+.bl-cb:checked{background:var(--orchid);border-color:var(--orchid)}
+.bl-cb:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:13px;font-weight:700}
+.bl-text{font-size:19px;color:var(--t2);flex:1;line-height:1.5}
+.bl-del{background:none;border:none;color:var(--t3);font-size:18px;cursor:pointer;padding:2px 4px;border-radius:4px;opacity:0;transition:opacity .15s;flex-shrink:0;line-height:1}
+.bl-item:hover .bl-del{opacity:1}
+.bl-del:hover{color:var(--amber);background:var(--amber-pale)}
+.bl-hint{font-size:14px;color:var(--t3);text-align:center;padding:1.5rem 0;display:none}
+
+/* ── Footer ── */
+.footer{font-size:14px;color:var(--t3);text-align:center;padding:2rem 0 2.5rem;border-top:1px solid var(--borderl);margin-top:1rem}
+
+/* ── Responsive ── */
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);transition:transform .25s ease}
+  .sidebar.open{transform:translateX(0)}
+  .sb-overlay.open{display:block}
+  .mob-hdr{display:flex}
+  .main{margin-left:0}
+  .c-hdr{padding:1.75rem 1.5rem 1.5rem}
+  .hdr-title{font-size:26px}
+  .hdr-deco{display:none}
+  .sec-nav{padding:0 1.5rem}
+  .article{padding:1.75rem 1.5rem 3rem}
+  .card{padding:1.25rem 1.3rem}
+  .cttl{font-size:20px}
+  .cbody{font-size:17px}
+  .en-grid{grid-template-columns:1fr 1fr}
+  .qt-wrap{padding:1.5rem}
+  .qt-txt{font-size:20px}
+  .grid2{grid-template-columns:1fr}
+  .sch-tbl th:last-child,.sch-tbl td:last-child{display:none}
+}
+@media(max-width:480px){
+  .en-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-brand">
+    <svg class="sb-icon" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="21" cy="21" r="20" stroke="#D8CCF0" stroke-width="1.5"/>
+      <path d="M21 7 C14 7 10 13 10 19 C10 26 15 30 21 34 C27 30 32 26 32 19 C32 13 28 7 21 7Z" fill="#EDE7F9" stroke="#A994C4" stroke-width="1"/>
+      <path d="M21 12 C18 15 17 19 18 22 C19 25 21 27 21 27 C21 27 23 25 24 22 C25 19 24 15 21 12Z" fill="#D8CCF0"/>
+      <circle cx="21" cy="21" r="2.5" fill="#A994C4"/>
+    </svg>
+    <div class="sb-title">Yen 每日早報</div>
+    <div class="sb-sub">DAILY BRIEFING</div>
+  </div>
+  <div class="sb-lbl">歷史早報</div>
+  <div class="date-list" id="dateList"></div>
+  <div class="sb-lbl" style="margin-top:auto;border-top:1px solid var(--borderl);padding-top:1rem">快速導覽</div>
+  <div style="padding:0 .75rem .75rem">
+    <button class="di" onclick="showBucket()" style="font-size:15px">✨ 想做的事清單</button>
+  </div>
+</aside>
+
+<div class="sb-overlay" id="overlay" onclick="closeSB()"></div>
+
+<!-- Main -->
+<main class="main">
+  <div class="mob-hdr">
+    <button class="mob-menu" onclick="openSB()">☰</button>
+    <div class="mob-title">每日早報</div>
+    <div class="mob-nav">
+      <button onclick="prevDay()">‹</button>
+      <button onclick="nextDay()">›</button>
+    </div>
+  </div>
+  <div id="pageContent"></div>
+</main>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// 早報資料庫 — 每天由排程任務自動新增
+// ══════════════════════════════════════════
+const BRIEFINGS = {
+  "2026-06-02": {
+    weekday:"星期二",
+    ganzhi:["丙午年","辛巳月","丁酉日"],
+    calendar_note:"Google 行事曆連線需重新授權，請直接開啟行事曆確認今日安排。",
+    ai:[
+      {tags:[["新上線","o"],["手作應用","s"]],title:"Claude Design",
+       body:"Anthropic 剛推出的 AI 設計工作空間，一句話 prompt 就能生成完整 Prototype、簡報、單頁網站、行銷素材，不需要開 Figma。",
+       you:"試著用它把「手工藝治療工作坊」概念視覺化，生成一頁式活動介紹頁，看薦骨有沒有被吸引。",url:"https://grenade.tw/blog/ai-in-design-2026-tools/"},
+      {tags:[["免費組合","s"],["品牌視覺","o"]],title:"Google Stitch + Figma Make 組合",
+       body:"用 Stitch 探索概念方向（免費），Figma Make 把想法轉成可互動 Prototype，整套接近零成本。",
+       you:"沖繩行程的視覺規劃，或未來手作課程的品牌氛圍板，都可以這樣跑一遍。",url:"https://rar.design/posts/ai-tools-for-designers-2026"},
+      {tags:[["非工程師也能用","a"]],title:"Claude Code — 打造自己的微工具",
+       body:"65% 的設計師在用，不是為了寫程式，而是打造「只屬於自己的微工具」：自動加 iPhone 邊框、批量調整版型。",
+       you:"有任何重複性手工步驟讓你覺得煩？讓它幫你做一個專屬的小工具。",url:"https://grenade.tw/blog/ai-in-design-2026-tools/"}
+    ],
+    design:[
+      {tags:[["2026最強趨勢","a"]],title:"「人類痕跡」美學反擊 AI 完美感",
+       body:"當所有 AI 圖都太完美，「看起來是人做的」反而成為最高信任背書。手繪感、紙質、相機晃到的真實感正在反擊。",
+       you:"手工藝指紋、陶土紋路、串珠不對稱——這是稀缺性，不是缺陷。拍攝時少修一點，反而更有力量。",url:"https://aliland-design.com/en/2026-graphic-design-trends-ai-visual-style/"},
+      {tags:[["職涯方向","o"]],title:"設計師轉型：用工具 → 造工具",
+       body:"91% 設計師每週用 AI（去年 54%）。最被市場重視的，是把美感與判斷力轉化成可重複 workflow 的人。",
+       you:"「藝術治療 × 手作」若發展出一套品牌視覺語言，就是下一波最有價值的設計能力。",url:"https://grenade.tw/blog/ai-in-design-2026-tools/"}
+    ],
+    stock_alert:["雷虎（8033）今日為抽籤日，請至券商 App 確認","合晶（6182）今日為抽籤日，請至券商 App 確認"],
+    stock_watch:[
+      {name:"0050",chip:"s",note:"元大台灣 50"},
+      {name:"0056",chip:"s",note:"元大高股息"},
+      {name:"台新金",chip:"a",note:"合併新光金進行中"},
+      {name:"新光金",chip:"a",note:"合併案後續留意"}
+    ],
+    energy:{
+      ganzhi:"丙午年　辛巳月　丁酉日",
+      hint:"丁火生戊土 · 酉金為食傷，適合輸出與表達",
+      items:[
+        {label:"情緒水位",text:"丁火溫柔滋養大山，像坐在窗邊有陽光照進來的舒適感，不焦慮。情緒水位平穩偏暖。"},
+        {label:"薦骨訊號",text:"適合「小小輸出」——拍一個過程影片、捏一個小東西、把想法說出口。等有興奮感的，就是今天方向。"},
+        {label:"天蠍洞察",text:"今日深層主題：「被看見的渴望」——讓自己的創作被世界接收到，這個渴望是真實且值得的。"},
+        {label:"摩羯提醒",text:"丁火輕柔，不適合定大計畫。「我應該要更有效率」這個念頭升起時，輕輕放下它就好。"},
+        {label:"與癸水伴侶",text:"今天讓先生多說話，你負責接收——他的流動感正好能潤澤你的丁火之日。"},
+        {label:"與甲木孩子",text:"今日酉金有點剋木，子蕨可能比較需要被「接住」。先給五分鐘全專注讚美，能量就穩定。"}
+      ],
+      action:"拿起一個你最近喜歡的材料，摸它 5 分鐘。",
+      action_sub:"不用做出什麼，就是摸。薦骨有反應，它自己知道接下來要做什麼。"
+    },
+    schedule:[
+      {time:"09:00–09:20",act:"閱讀早報 + 確認台股抽籤",note:"雷虎 / 合晶 今日抽籤",energy:"清醒大腦，掌握全局"},
+      {time:"09:20–10:30",act:"試玩 Claude Design",note:"把手作治療的概念輸入進去",energy:"MG 薦骨回應式探索"},
+      {time:"10:30–11:00",act:"運動",note:"散步 / 瑜珈 / 伸展",energy:"戊土大山接地氣"},
+      {time:"11:00–13:00",act:"手作時光",note:"陶土 或 串珠，哪個有感覺選哪個",energy:"食傷流動，做出來就是輸出"},
+      {time:"13:00–14:30",act:"午餐 + 午休",note:"",energy:"大山充飽電"},
+      {time:"14:30–17:00",act:"自由探索",note:"沖繩規劃 / 作品集整理 / 研究",energy:"順著薦骨走"},
+      {time:"17:00 後",act:"家庭時光",note:"",energy:"癸水滋潤大山"}
+    ],
+    quote:"大山不需要每天移動，\n她只需要讓對的東西在她身上生長。\n今天，你就是那座接受光照的山——\n不急著開花，只是好好地，暖著。"
+  }
+};
+
+// ── 想做的事清單預設 ──
+const DEFAULT_TODOS = [
+  "修理時鐘","整理一下公司帳戶","橘紅色的櫃子釘到牆上","整理離職後的物品",
+  "看學校老師給的書","練習刺繡","去找老師捏陶","練習串珠珠",
+  "進行財務規劃","更新履歷履表","寫卡片給大家","練習錄影片和剪影片",
+  "整理小糰子的玩具和桌遊","用 Claude AI 創建小糰子的記憶相本",
+  "試著設計幼兒的教具","看有沒有喜歡的工作？",
+  "重啟一丈罌粟果的規劃","評估目前的各項訂閱費",
+  "處理大門的隔音問題","規劃沖繩旅遊","規劃國內旅遊","整理家裡的植物"
+];
+
+// ── App state ──
+const dates = Object.keys(BRIEFINGS).sort().reverse();
+let currentIdx = 0;
+
+function openSB(){ document.getElementById('sidebar').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+function closeSB(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+function prevDay(){ if(currentIdx < dates.length-1){ currentIdx++; render(); } }
+function nextDay(){ if(currentIdx > 0){ currentIdx--; render(); } }
+function selectDate(i){ currentIdx=i; render(); closeSB(); }
+function showBucket(){ scrollToEl('s-bucket'); closeSB(); }
+
+function buildDateList(){
+  const dl = document.getElementById('dateList');
+  dl.innerHTML = dates.map((d,i)=>{
+    const b=BRIEFINGS[d], p=d.split('-');
+    return `<button class="di${i===currentIdx?' active':''}" onclick="selectDate(${i})">
+      <span class="dim">${p[1]}月${p[2]}日 ${b.weekday}</span>
+      <span class="dis">${b.ganzhi[2]}</span>
+    </button>`;
+  }).join('');
+}
+
+const tag=(t,c)=>`<span class="tag tag-${c}">${t}</span>`;
+
+// SVG decorations
+const ORCHID=`<svg width="120" height="160" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M60 150 C60 150 40 120 35 95 C30 70 45 55 60 50 C75 55 90 70 85 95 C80 120 60 150 60 150Z" fill="#EDE7F9" stroke="#A994C4" stroke-width="1"/><path d="M60 50 C55 30 45 20 35 25 C25 30 30 50 45 55 C50 57 55 53 60 50Z" fill="#D8CCF0" stroke="#A994C4" stroke-width="1"/><path d="M60 50 C65 30 75 20 85 25 C95 30 90 50 75 55 C70 57 65 53 60 50Z" fill="#D8CCF0" stroke="#A994C4" stroke-width="1"/><path d="M60 50 C60 30 55 15 50 10 C45 5 42 18 48 35 C51 42 56 46 60 50Z" fill="#EDE7F9" stroke="#A994C4" stroke-width="0.75"/><path d="M60 50 C60 30 65 15 70 10 C75 5 78 18 72 35 C69 42 64 46 60 50Z" fill="#EDE7F9" stroke="#A994C4" stroke-width="0.75"/><circle cx="60" cy="50" r="4" fill="#A994C4"/><path d="M60 150 C62 135 64 120 64 120" stroke="#B4CFBE" stroke-width="1.5" stroke-linecap="round"/><path d="M62 130 C68 125 78 128 82 122" stroke="#B4CFBE" stroke-width="1" stroke-linecap="round"/></svg>`;
+
+const LEAF_SM=`<svg width="24" height="24" viewBox="0 0 80 80" fill="none"><path d="M40 70 C20 60 10 40 15 25 C20 10 35 8 40 10 C45 8 60 10 65 25 C70 40 60 60 40 70Z" fill="#EDF5F0" stroke="#B4CFBE" stroke-width="1"/><path d="M40 70 C40 70 40 40 40 10" stroke="#B4CFBE" stroke-width="1" stroke-linecap="round"/></svg>`;
+
+const BRUSH=`<svg width="200" height="120" viewBox="0 0 200 120" fill="none"><path d="M10 80 C40 60 80 50 120 55 C160 60 180 40 195 20" stroke="#D8CCF0" stroke-width="2" stroke-linecap="round"/><path d="M5 100 C50 85 100 80 150 85 C170 88 185 75 198 60" stroke="#B4CFBE" stroke-width="1.5" stroke-linecap="round"/><circle cx="120" cy="55" r="3" fill="#EDE7F9" stroke="#A994C4" stroke-width="1"/><circle cx="80" cy="50" r="2" fill="#EDF5F0" stroke="#B4CFBE" stroke-width="1"/></svg>`;
+
+// ── Bucket list logic ──
+function getTodos(){
+  try{ const s=localStorage.getItem('yen-todos'); return s?JSON.parse(s):null; }catch(e){return null;}
+}
+function saveTodos(items){ try{localStorage.setItem('yen-todos',JSON.stringify(items));}catch(e){} }
+function initTodos(){
+  let items=getTodos();
+  if(!items){ items=DEFAULT_TODOS.map((t,i)=>({id:Date.now()+i,text:t,done:false})); saveTodos(items); }
+  return items;
+}
+
+function renderBucket(){
+  const items=initTodos();
+  const list=document.getElementById('blList');
+  if(!list)return;
+  list.innerHTML='';
+  items.forEach((item,idx)=>{
+    const li=document.createElement('li');
+    li.className='bl-item'+(item.done?' done':'');
+    li.draggable=true;
+    li.dataset.idx=idx;
+    li.innerHTML=`<span class="bl-drag" title="拖曳排序">⋮⋮</span>
+      <input type="checkbox" class="bl-cb" ${item.done?'checked':''} onchange="toggleTodo(${item.id})">
+      <span class="bl-text">${escHtml(item.text)}</span>
+      <button class="bl-del" onclick="delTodo(${item.id})" title="刪除">✕</button>`;
+    // drag events
+    li.addEventListener('dragstart',e=>{li.classList.add('dragging');e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',idx);});
+    li.addEventListener('dragend',()=>{li.classList.remove('dragging');document.querySelectorAll('.bl-item').forEach(el=>el.classList.remove('drag-over'));});
+    li.addEventListener('dragover',e=>{e.preventDefault();li.classList.add('drag-over');});
+    li.addEventListener('dragleave',()=>li.classList.remove('drag-over'));
+    li.addEventListener('drop',e=>{
+      e.preventDefault();
+      li.classList.remove('drag-over');
+      const from=parseInt(e.dataTransfer.getData('text/plain'));
+      const to=parseInt(li.dataset.idx);
+      if(from===to)return;
+      const items2=initTodos();
+      const [moved]=items2.splice(from,1);
+      items2.splice(to,0,moved);
+      saveTodos(items2);
+      renderBucket();
+    });
+    list.appendChild(li);
+  });
+  // hint if empty
+  const hint=document.getElementById('blHint');
+  if(hint) hint.style.display=items.length?'none':'block';
+  // progress
+  const done=items.filter(x=>x.done).length;
+  const prog=document.getElementById('blProg');
+  if(prog) prog.textContent=`已完成 ${done} / ${items.length} 項`;
+}
+
+function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function toggleTodo(id){
+  const items=initTodos();
+  const item=items.find(x=>x.id===id);
+  if(item){ item.done=!item.done; saveTodos(items); renderBucket(); }
+}
+function delTodo(id){
+  const items=initTodos().filter(x=>x.id!==id);
+  saveTodos(items); renderBucket();
+}
+function addTodo(){
+  const inp=document.getElementById('blInp');
+  const text=inp.value.trim();
+  if(!text)return;
+  const items=initTodos();
+  items.push({id:Date.now(),text,done:false});
+  saveTodos(items);
+  inp.value='';
+  renderBucket();
+}
+
+// ── Main render ──
+function render(){
+  const dk=dates[currentIdx], b=BRIEFINGS[dk];
+  const p=dk.split('-'), dl=`${p[0]}年${p[1]}月${p[2]}日`;
+
+  const aiCards=b.ai.map(item=>`
+    <div class="card">
+      <div class="ctags">${item.tags.map(([t,c])=>tag(t,c)).join('')}</div>
+      <div class="cttl">${item.title}</div>
+      <div class="cbody">${item.body}</div>
+      <div class="cyou"><div class="cyou-lbl">你的應用</div>${item.you}</div>
+      <a class="clink" href="${item.url}" target="_blank">閱讀全文 →</a>
+    </div>`).join('');
+
+  const desCards=`<div class="grid2">${b.design.map(item=>`
+    <div class="card">
+      <div class="ctags">${item.tags.map(([t,c])=>tag(t,c)).join('')}</div>
+      <div class="cttl">${item.title}</div>
+      <div class="cbody">${item.body}</div>
+      <div class="cyou"><div class="cyou-lbl">你的機會</div>${item.you}</div>
+      <a class="clink" href="${item.url}" target="_blank">閱讀全文 →</a>
+    </div>`).join('')}</div>`;
+
+  const alerts=b.stock_alert.length?`
+    <div class="alert-box">
+      <div class="alert-ico">⚡</div>
+      <div><div class="alert-lbl">今日抽籤提醒</div>
+      ${b.stock_alert.map(a=>`<div class="alert-item">${a}</div>`).join('')}</div>
+    </div>`:'' ;
+
+  const srows=b.stock_watch.map(s=>`<tr><td>${s.name}</td><td><span class="chip chip-${s.chip}">待查詢</span></td><td style="font-size:15px;color:var(--t3)">${s.note}</td></tr>`).join('');
+
+  const eitems=b.energy.items.map(e=>`<div class="en-item"><div class="en-lbl">${e.label}</div><div class="en-txt">${e.text}</div></div>`).join('');
+
+  const srows2=b.schedule.map(s=>`<tr><td class="st">${s.time}</td><td><div class="sa">${s.act}</div>${s.note?`<div class="sn">${s.note}</div>`:''}</td><td class="se">${s.energy}</td></tr>`).join('');
+
+  const calNote=b.calendar_note?`<div class="warn">📌 ${b.calendar_note}</div>`:'';
+  const qlines=b.quote.split('\n').join('<br>');
+
+  document.getElementById('pageContent').innerHTML=`
+    <div class="c-hdr">
+      <div class="hdr-deco">${BRUSH}</div>
+      <div class="hdr-eye">DAILY BRIEFING · 數位執行長</div>
+      <div class="hdr-title">Yen 的每日早報</div>
+      <div class="hdr-date">${dl}　${b.weekday}</div>
+      <div class="hdr-pills">${b.ganzhi.map(g=>`<span class="hdr-pill">${g}</span>`).join('')}</div>
+    </div>
+
+    <nav class="sec-nav">
+      <button class="sn-btn" onclick="scrollToEl('s-ai')">🤖 AI 好物</button>
+      <button class="sn-btn" onclick="scrollToEl('s-design')">🎨 設計動態</button>
+      <button class="sn-btn" onclick="scrollToEl('s-stock')">📈 台股</button>
+      <button class="sn-btn" onclick="scrollToEl('s-energy')">🔮 能量解析</button>
+      <button class="sn-btn" onclick="scrollToEl('s-schedule')">📅 行程</button>
+      <button class="sn-btn" onclick="scrollToEl('s-bucket')">✨ 想做的事</button>
+    </nav>
+
+    <div class="article">
+
+      <div class="section" id="s-ai">
+        <div class="sec-hdr">
+          <div class="sec-ico" style="background:var(--orchid-pale)">${LEAF_SM}</div>
+          <span class="sec-num">一</span>
+          <span class="sec-ttl">AI 好物報告</span>
+          <span class="sec-meta">設計師視角 · ${b.ai.length} 則</span>
+        </div>
+        ${aiCards}
+      </div>
+
+      <div class="section" id="s-design">
+        <div class="sec-hdr">
+          <div class="sec-ico" style="background:var(--amber-pale)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3C8 3 5 6 5 10C5 15 9 18 12 21C15 18 19 15 19 10C19 6 16 3 12 3Z" fill="var(--amber-pale)" stroke="var(--amber-lt)" stroke-width="1.5"/><circle cx="12" cy="10" r="2" fill="var(--amber-lt)"/></svg>
+          </div>
+          <span class="sec-num">二</span>
+          <span class="sec-ttl">設計界動態</span>
+          <span class="sec-meta">趨勢 · ${b.design.length} 則</span>
+        </div>
+        ${desCards}
+      </div>
+
+      <div class="section" id="s-stock">
+        <div class="sec-hdr">
+          <div class="sec-ico" style="background:var(--sage-pale)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="14" width="3" height="6" rx="1" fill="var(--sage-lt)"/><rect x="9" y="10" width="3" height="10" rx="1" fill="var(--sage-lt)"/><rect x="14" y="6" width="3" height="14" rx="1" fill="var(--sage-lt)"/><rect x="19" y="9" width="3" height="11" rx="1" fill="var(--sage-lt)"/></svg>
+          </div>
+          <span class="sec-num">三</span>
+          <span class="sec-ttl">台股提醒</span>
+        </div>
+        ${alerts}
+        <div class="card">
+          <div style="font-family:var(--serif);font-size:20px;font-weight:500;color:var(--ink);margin-bottom:6px">重點標的動態</div>
+          <div style="font-size:15px;color:var(--t3);margin-bottom:14px">即時股價請至 <a href="https://tw.stock.yahoo.com" target="_blank">Yahoo 股市</a> 或券商 App 查詢</div>
+          <table class="stbl"><thead><tr><th>標的</th><th>今日狀態</th><th>備註</th></tr></thead><tbody>${srows}</tbody></table>
+        </div>
+      </div>
+
+      <div class="section" id="s-energy">
+        <div class="sec-hdr">
+          <div class="sec-ico" style="background:var(--orchid-pale)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 5C11 5 8 8 8 12C8 16 11 19 15 19C12 17.5 10.5 15 10.5 12C10.5 9 12 6.5 15 5Z" fill="var(--orchid-pale)" stroke="var(--orchid-lt)" stroke-width="1.5"/><circle cx="18" cy="7" r="1.5" fill="var(--orchid-lt)"/></svg>
+          </div>
+          <span class="sec-num">四</span>
+          <span class="sec-ttl">今日能量解析</span>
+          <span class="sec-meta">全息交叉報告</span>
+        </div>
+        <div class="en-wrap">
+          <div class="en-deco">${ORCHID}</div>
+          <div class="gz-lbl">今日干支</div>
+          <div class="gz-disp">${b.energy.ganzhi}</div>
+          <div class="gz-hint">${b.energy.hint}</div>
+          <div class="en-grid">${eitems}</div>
+          <div class="act-box">
+            <div class="act-lbl">今日行動微結構</div>
+            <div class="act-txt">${b.energy.action}</div>
+            <div class="act-sub">${b.energy.action_sub}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="s-schedule">
+        <div class="sec-hdr">
+          <div class="sec-ico" style="background:var(--sage-pale)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="6" width="16" height="14" rx="2" stroke="var(--sage-lt)" stroke-width="1.5" fill="none"/><path d="M4 10 L20 10" stroke="var(--sage-lt)" stroke-width="1.5"/><path d="M8 4 L8 8" stroke="var(--sage-lt)" stroke-width="1.5" stroke-linecap="round"/><path d="M16 4 L16 8" stroke="var(--sage-lt)" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <span class="sec-num">五</span>
+          <span class="sec-ttl">今日建議行程</span>
+        </div>
+        ${calNote}
+        <div class="card">
+          <table class="sch-tbl"><thead><tr><th>時間</th><th>活動</th><th>能量說明</th></tr></thead><tbody>${srows2}</tbody></table>
+        </div>
+      </div>
+
+      <div class="section" id="s-quote">
+        <div class="sec-hdr">
+          <span class="sec-num">—</span>
+          <span class="sec-ttl">今日給 Yen 的一句話</span>
+        </div>
+        <div class="qt-wrap">
+          <div class="qt-deco">${ORCHID}</div>
+          <div class="qt-eye">TODAY'S MESSAGE</div>
+          <div class="qt-txt">${qlines}</div>
+          <div class="qt-from">by Claude · 數位執行長</div>
+        </div>
+      </div>
+
+      <div class="section" id="s-bucket">
+        <div class="sec-hdr">
+          <div class="sec-ico" style="background:var(--orchid-pale);font-size:20px">✨</div>
+          <span class="sec-num">六</span>
+          <span class="sec-ttl">想做的事</span>
+          <span class="sec-meta" id="blProg"></span>
+        </div>
+        <div class="bucket-wrap">
+          <div class="bl-add">
+            <input class="bl-inp" id="blInp" type="text" placeholder="新增一件想做的事…"
+              onkeydown="if(event.key==='Enter')addTodo()">
+            <button class="bl-add-btn" onclick="addTodo()">＋ 新增</button>
+          </div>
+          <ul class="bl-list" id="blList"></ul>
+          <div class="bl-hint" id="blHint">還沒有清單項目，從上方新增第一件想做的事吧！</div>
+          <div style="font-size:14px;color:var(--t3);margin-top:1rem;text-align:center">💡 拖曳左側 ⋮⋮</span> 他来完成 &nbsp;·&nbsp; 右側 ✕ 可刪除</div>
+        </div>
+      </div>
+
+      <div class="footer">
+        台股資訊請以官方平台為準 &nbsp;·&nbsp; 命理解析僅供內在參考 &nbsp;·&nbsp; 早報 by Claude
+      </div>
+    </div>`;
+
+  buildDateList();
+  renderBucket();
+  window.scrollTo(0,0);
+}
+
+function scrollToEl(id){
+  const el=document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+render();
+</script>
+</body>
+</html>
