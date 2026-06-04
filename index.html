@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>Yen æ¯æ¥æ©å ±</title>
+<title>Yen 每日早報</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
@@ -27,7 +27,7 @@ html{-webkit-text-size-adjust:100%}
 body{font-family:var(--sans);background:var(--page);color:var(--t1);font-size:20px;line-height:1.75;min-height:100vh}
 a{color:var(--orchid);text-decoration:none}
 
-/* ââ Layout ââ */
+/* ── Layout ── */
 .app{display:flex;min-height:100vh}
 .sidebar{
   width:var(--sw);min-height:100vh;background:var(--cream);
@@ -57,7 +57,7 @@ a{color:var(--orchid);text-decoration:none}
 .mob-nav{display:flex;gap:6px}
 .mob-nav button{background:var(--orchid-pale);border:1px solid var(--orchid-lt);color:var(--orchid);border-radius:6px;width:34px;height:34px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 
-/* ââ Content Header ââ */
+/* ── Content Header ── */
 .c-hdr{background:var(--cream);border-bottom:1px solid var(--border);padding:2.5rem 3rem 2rem;position:relative;overflow:hidden}
 .hdr-deco{position:absolute;right:0;top:0;bottom:0;width:220px;opacity:.45;pointer-events:none}
 .hdr-eye{font-size:12px;letter-spacing:3px;color:var(--orchid-med);margin-bottom:10px}
@@ -66,16 +66,16 @@ a{color:var(--orchid);text-decoration:none}
 .hdr-pills{display:flex;gap:8px;flex-wrap:wrap}
 .hdr-pill{font-size:13px;padding:4px 15px;border-radius:30px;border:1px solid var(--orchid-lt);color:var(--orchid);background:var(--orchid-pale);letter-spacing:.5px}
 
-/* ââ Section nav ââ */
+/* ── Section nav ── */
 .sec-nav{background:var(--cream);border-bottom:1px solid var(--border);padding:0 3rem;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:0;z-index:40}
 .sn-btn{font-size:14px;color:var(--t3);padding:.9rem 1rem;border:none;background:none;cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s}
 .sn-btn:hover{color:var(--orchid)}
 .sn-btn.active{color:var(--orchid);border-bottom-color:var(--orchid)}
 
-/* ââ Article ââ */
+/* ── Article ── */
 .article{padding:2.5rem 3rem 4rem;max-width:840px}
 
-/* ââ Section ââ */
+/* ── Section ── */
 .section{margin-bottom:3.5rem}
 .sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding-bottom:.85rem;border-bottom:1.5px solid var(--borderl)}
 .sec-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -83,7 +83,7 @@ a{color:var(--orchid);text-decoration:none}
 .sec-ttl{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink)}
 .sec-meta{font-size:13px;color:var(--t3);margin-left:auto}
 
-/* ââ Cards ââ */
+/* ── Cards ── */
 .card{background:var(--cream);border:1px solid var(--borderl);border-radius:14px;padding:1.6rem 1.75rem;margin-bottom:12px}
 .ctags{margin-bottom:10px}
 .tag{display:inline-block;font-size:12px;letter-spacing:.5px;padding:3px 12px;border-radius:30px;margin-right:6px;font-weight:500}
@@ -98,7 +98,7 @@ a{color:var(--orchid);text-decoration:none}
 .clink:hover{border-color:var(--orchid)}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
 
-/* ââ Stock ââ */
+/* ── Stock ── */
 .alert-box{background:var(--amber-pale);border:1px solid var(--amber-lt);border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:14px;display:flex;gap:12px;align-items:flex-start}
 .alert-ico{font-size:22px;flex-shrink:0;margin-top:1px}
 .alert-lbl{font-size:12px;letter-spacing:2px;font-weight:500;color:var(--amber);margin-bottom:6px}
@@ -112,7 +112,7 @@ a{color:var(--orchid);text-decoration:none}
 .chip-s{background:var(--sage-pale);color:var(--sage)}
 .chip-a{background:var(--amber-pale);color:var(--amber)}
 
-/* ââ Energy ââ */
+/* ── Energy ── */
 .en-wrap{background:var(--cream);border:1px solid var(--orchid-lt);border-radius:16px;padding:2rem;position:relative;overflow:hidden}
 .en-deco{position:absolute;right:-10px;top:-10px;opacity:.1;pointer-events:none}
 .gz-lbl{font-size:12px;letter-spacing:2.5px;color:var(--orchid-med);margin-bottom:6px}
@@ -127,7 +127,7 @@ a{color:var(--orchid);text-decoration:none}
 .act-txt{font-family:var(--serif);font-size:20px;color:var(--ink);line-height:1.65}
 .act-sub{font-size:15px;color:var(--t3);margin-top:5px}
 
-/* ââ Schedule ââ */
+/* ── Schedule ── */
 .sch-tbl{width:100%;border-collapse:collapse}
 .sch-tbl th{font-size:13px;letter-spacing:1px;color:var(--t3);font-weight:500;text-align:left;padding:7px 14px;border-bottom:1px solid var(--border)}
 .sch-tbl td{padding:13px 14px;border-bottom:1px solid var(--borderl);vertical-align:top}
@@ -137,17 +137,17 @@ a{color:var(--orchid);text-decoration:none}
 .sn{font-size:14px;color:var(--t3)}
 .se{font-size:14px;color:var(--t3)}
 
-/* ââ Warn ââ */
+/* ── Warn ── */
 .warn{background:var(--amber-pale);border:1px solid var(--amber-lt);border-radius:10px;padding:1rem 1.3rem;margin-bottom:14px;font-size:17px;color:var(--amber)}
 
-/* ââ Quote ââ */
+/* ── Quote ── */
 .qt-wrap{background:var(--orchid-pale);border:1px solid var(--orchid-lt);border-radius:16px;padding:2.25rem 2.5rem;position:relative;overflow:hidden}
 .qt-deco{position:absolute;right:0;bottom:0;opacity:.1;pointer-events:none}
 .qt-eye{font-size:12px;letter-spacing:3px;color:var(--orchid-med);margin-bottom:1.25rem}
 .qt-txt{font-family:var(--serif);font-size:23px;color:var(--ink);line-height:2;letter-spacing:.3px}
 .qt-from{font-size:13px;color:var(--t3);margin-top:1.25rem}
 
-/* ââ Bucket List ââ */
+/* ── Bucket List ── */
 .bucket-wrap{background:var(--cream);border:1px solid var(--borderl);border-radius:14px;padding:1.75rem}
 .bl-add{display:flex;gap:10px;margin-bottom:1.25rem}
 .bl-inp{flex:1;border:1px solid var(--border);border-radius:8px;padding:.65rem 1rem;font-family:var(--sans);font-size:17px;color:var(--ink);background:var(--parchment);outline:none;transition:border-color .15s}
@@ -170,17 +170,17 @@ a{color:var(--orchid);text-decoration:none}
 .bl-drag{color:var(--t3);font-size:18px;cursor:grab;flex-shrink:0;user-select:none;line-height:1}
 .bl-cb{width:22px;height:22px;border-radius:6px;border:2px solid var(--orchid-lt);background:#fff;cursor:pointer;flex-shrink:0;appearance:none;-webkit-appearance:none;position:relative;transition:all .15s}
 .bl-cb:checked{background:var(--orchid);border-color:var(--orchid)}
-.bl-cb:checked::after{content:'â';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:13px;font-weight:700}
+.bl-cb:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:13px;font-weight:700}
 .bl-text{font-size:19px;color:var(--t2);flex:1;line-height:1.5}
 .bl-del{background:none;border:none;color:var(--t3);font-size:18px;cursor:pointer;padding:2px 4px;border-radius:4px;opacity:0;transition:opacity .15s;flex-shrink:0;line-height:1}
 .bl-item:hover .bl-del{opacity:1}
 .bl-del:hover{color:var(--amber);background:var(--amber-pale)}
 .bl-hint{font-size:14px;color:var(--t3);text-align:center;padding:1.5rem 0;display:none}
 
-/* ââ Footer ââ */
+/* ── Footer ── */
 .footer{font-size:14px;color:var(--t3);text-align:center;padding:2rem 0 2.5rem;border-top:1px solid var(--borderl);margin-top:1rem}
 
-/* ââ Responsive ââ */
+/* ── Responsive ── */
 @media(max-width:768px){
   .sidebar{transform:translateX(-100%);transition:transform .25s ease}
   .sidebar.open{transform:translateX(0)}
@@ -218,14 +218,14 @@ a{color:var(--orchid);text-decoration:none}
       <path d="M21 12 C18 15 17 19 18 22 C19 25 21 27 21 27 C21 27 23 25 24 22 C25 19 24 15 21 12Z" fill="#D8CCF0"/>
       <circle cx="21" cy="21" r="2.5" fill="#A994C4"/>
     </svg>
-    <div class="sb-title">Yen æ¯æ¥æ©å ±</div>
+    <div class="sb-title">Yen 每日早報</div>
     <div class="sb-sub">DAILY BRIEFING</div>
   </div>
-  <div class="sb-lbl">æ­·å²æ©å ±</div>
+  <div class="sb-lbl">歷史早報</div>
   <div class="date-list" id="dateList"></div>
-  <div class="sb-lbl" style="margin-top:auto;border-top:1px solid var(--borderl);padding-top:1rem">å¿«éå°è¦½</div>
+  <div class="sb-lbl" style="margin-top:auto;border-top:1px solid var(--borderl);padding-top:1rem">快速導覽</div>
   <div style="padding:0 .75rem .75rem">
-    <button class="di" onclick="showBucket()" style="font-size:15px">â¨ æ³åçäºæ¸å®</button>
+    <button class="di" onclick="showBucket()" style="font-size:15px">✨ 想做的事清單</button>
   </div>
 </aside>
 
@@ -234,11 +234,11 @@ a{color:var(--orchid);text-decoration:none}
 <!-- Main -->
 <main class="main">
   <div class="mob-hdr">
-    <button class="mob-menu" onclick="openSB()">â°</button>
-    <div class="mob-title">æ¯æ¥æ©å ±</div>
+    <button class="mob-menu" onclick="openSB()">☰</button>
+    <div class="mob-title">每日早報</div>
     <div class="mob-nav">
-      <button onclick="prevDay()">â¹</button>
-      <button onclick="nextDay()">âº</button>
+      <button onclick="prevDay()">‹</button>
+      <button onclick="nextDay()">›</button>
     </div>
   </div>
   <div id="pageContent"></div>
@@ -246,9 +246,9 @@ a{color:var(--orchid);text-decoration:none}
 </div>
 
 <script>
-// ââââââââââââââââââââââââââââââââââââââââââ
-// æ©å ±è³æåº« â æ¯å¤©ç±æç¨ä»»åèªåæ°å¢
-// ââââââââââââââââââââââââââââââââââââââââââ
+// ══════════════════════════════════════════
+// 早報資料庫 — 每天由排程任務自動新增
+// ══════════════════════════════════════════
 const BRIEFINGS = {
   "2026-06-04": {
     weekday: "星期四",
@@ -298,74 +298,74 @@ const BRIEFINGS = {
   },
 
   "2026-06-02": {
-    weekday:"ææäº",
-    ganzhi:["ä¸åå¹´","è¾å·³æ","ä¸éæ¥"],
-    calendar_note:"Google è¡äºæé£ç·ééæ°ææ¬ï¼è«ç´æ¥éåè¡äºæç¢ºèªä»æ¥å®æã",
+    weekday:"星期二",
+    ganzhi:["丙午年","辛巳月","丁酉日"],
+    calendar_note:"Google 行事曆連線需重新授權，請直接開啟行事曆確認今日安排。",
     ai:[
-      {tags:[["æ°ä¸ç·","o"],["æä½æç¨","s"]],title:"Claude Design",
-       body:"Anthropic åæ¨åºç AI è¨­è¨å·¥ä½ç©ºéï¼ä¸å¥è©± prompt å°±è½çæå®æ´ Prototypeãç°¡å ±ãå®é ç¶²ç«ãè¡é·ç´ æï¼ä¸éè¦é Figmaã",
-       you:"è©¦èç¨å®æãæå·¥èæ²»çå·¥ä½åãæ¦å¿µè¦è¦ºåï¼çæä¸é å¼æ´»åä»ç´¹é ï¼çè¦éª¨ææ²æè¢«å¸å¼ã",url:"https://grenade.tw/blog/ai-in-design-2026-tools/"},
-      {tags:[["åè²»çµå","s"],["åçè¦è¦º","o"]],title:"Google Stitch + Figma Make çµå",
-       body:"ç¨ Stitch æ¢ç´¢æ¦å¿µæ¹åï¼åè²»ï¼ï¼Figma Make ææ³æ³è½æå¯äºå Prototypeï¼æ´å¥æ¥è¿é¶ææ¬ã",
-       you:"æ²ç¹©è¡ç¨çè¦è¦ºè¦åï¼ææªä¾æä½èª²ç¨çåçæ°åæ¿ï¼é½å¯ä»¥éæ¨£è·ä¸éã",url:"https://rar.design/posts/ai-tools-for-designers-2026"},
-      {tags:[["éå·¥ç¨å¸«ä¹è½ç¨","a"]],title:"Claude Code â æé èªå·±çå¾®å·¥å·",
-       body:"65% çè¨­è¨å¸«å¨ç¨ï¼ä¸æ¯çºäºå¯«ç¨å¼ï¼èæ¯æé ãåªå±¬æ¼èªå·±çå¾®å·¥å·ãï¼èªåå  iPhone éæ¡ãæ¹éèª¿æ´çåã",
-       you:"æä»»ä½éè¤æ§æå·¥æ­¥é©è®ä½ è¦ºå¾ç©ï¼è®å®å¹«ä½ åä¸åå°å±¬çå°å·¥å·ã",url:"https://grenade.tw/blog/ai-in-design-2026-tools/"}
+      {tags:[["新上線","o"],["手作應用","s"]],title:"Claude Design",
+       body:"Anthropic 剛推出的 AI 設計工作空間，一句話 prompt 就能生成完整 Prototype、簡報、單頁網站、行銷素材，不需要開 Figma。",
+       you:"試著用它把「手工藝治療工作坊」概念視覺化，生成一頁式活動介紹頁，看薦骨有沒有被吸引。",url:"https://grenade.tw/blog/ai-in-design-2026-tools/"},
+      {tags:[["免費組合","s"],["品牌視覺","o"]],title:"Google Stitch + Figma Make 組合",
+       body:"用 Stitch 探索概念方向（免費），Figma Make 把想法轉成可互動 Prototype，整套接近零成本。",
+       you:"沖繩行程的視覺規劃，或未來手作課程的品牌氛圍板，都可以這樣跑一遍。",url:"https://rar.design/posts/ai-tools-for-designers-2026"},
+      {tags:[["非工程師也能用","a"]],title:"Claude Code — 打造自己的微工具",
+       body:"65% 的設計師在用，不是為了寫程式，而是打造「只屬於自己的微工具」：自動加 iPhone 邊框、批量調整版型。",
+       you:"有任何重複性手工步驟讓你覺得煩？讓它幫你做一個專屬的小工具。",url:"https://grenade.tw/blog/ai-in-design-2026-tools/"}
     ],
     design:[
-      {tags:[["2026æå¼·è¶¨å¢","a"]],title:"ãäººé¡çè·¡ãç¾å­¸åæ AI å®ç¾æ",
-       body:"ç¶ææ AI åé½å¤ªå®ç¾ï¼ãçèµ·ä¾æ¯äººåçãåèæçºæé«ä¿¡ä»»èæ¸ãæç¹ªæãç´è³ªãç¸æ©æå°ççå¯¦ææ­£å¨åæã",
-       you:"æå·¥èæç´ãé¶åç´è·¯ãä¸²ç ä¸å°ç¨±ââéæ¯ç¨ç¼ºæ§ï¼ä¸æ¯ç¼ºé·ãæææå°ä¿®ä¸é»ï¼åèæ´æåéã",url:"https://aliland-design.com/en/2026-graphic-design-trends-ai-visual-style/"},
-      {tags:[["è·æ¶¯æ¹å","o"]],title:"è¨­è¨å¸«è½åï¼ç¨å·¥å· â é å·¥å·",
-       body:"91% è¨­è¨å¸«æ¯é±ç¨ AIï¼å»å¹´ 54%ï¼ãæè¢«å¸å ´éè¦çï¼æ¯æç¾æèå¤æ·åè½åæå¯éè¤ workflow çäººã",
-       you:"ãèè¡æ²»ç Ã æä½ãè¥ç¼å±åºä¸å¥åçè¦è¦ºèªè¨ï¼å°±æ¯ä¸ä¸æ³¢ææå¹å¼çè¨­è¨è½åã",url:"https://grenade.tw/blog/ai-in-design-2026-tools/"}
+      {tags:[["2026最強趨勢","a"]],title:"「人類痕跡」美學反擊 AI 完美感",
+       body:"當所有 AI 圖都太完美，「看起來是人做的」反而成為最高信任背書。手繪感、紙質、相機晃到的真實感正在反擊。",
+       you:"手工藝指紋、陶土紋路、串珠不對稱——這是稀缺性，不是缺陷。拍攝時少修一點，反而更有力量。",url:"https://aliland-design.com/en/2026-graphic-design-trends-ai-visual-style/"},
+      {tags:[["職涯方向","o"]],title:"設計師轉型：用工具 → 造工具",
+       body:"91% 設計師每週用 AI（去年 54%）。最被市場重視的，是把美感與判斷力轉化成可重複 workflow 的人。",
+       you:"「藝術治療 × 手作」若發展出一套品牌視覺語言，就是下一波最有價值的設計能力。",url:"https://grenade.tw/blog/ai-in-design-2026-tools/"}
     ],
-    stock_alert:["é·èï¼8033ï¼ä»æ¥çºæ½ç±¤æ¥ï¼è«è³å¸å App ç¢ºèª","åæ¶ï¼6182ï¼ä»æ¥çºæ½ç±¤æ¥ï¼è«è³å¸å App ç¢ºèª"],
+    stock_alert:["雷虎（8033）今日為抽籤日，請至券商 App 確認","合晶（6182）今日為抽籤日，請至券商 App 確認"],
     stock_watch:[
-      {name:"0050",chip:"s",note:"åå¤§å°ç£ 50"},
-      {name:"0056",chip:"s",note:"åå¤§é«è¡æ¯"},
-      {name:"å°æ°é",chip:"a",note:"åä½µæ°åéé²è¡ä¸­"},
-      {name:"æ°åé",chip:"a",note:"åä½µæ¡å¾çºçæ"}
+      {name:"0050",chip:"s",note:"元大台灣 50"},
+      {name:"0056",chip:"s",note:"元大高股息"},
+      {name:"台新金",chip:"a",note:"合併新光金進行中"},
+      {name:"新光金",chip:"a",note:"合併案後續留意"}
     ],
     energy:{
-      ganzhi:"ä¸åå¹´ãè¾å·³æãä¸éæ¥",
-      hint:"ä¸ç«çæå Â· ééçºé£å·ï¼é©åè¼¸åºèè¡¨é",
+      ganzhi:"丙午年　辛巳月　丁酉日",
+      hint:"丁火生戊土 · 酉金為食傷，適合輸出與表達",
       items:[
-        {label:"æç·æ°´ä½",text:"ä¸ç«æº«ææ»é¤å¤§å±±ï¼ååå¨çªéæé½åç§é²ä¾çèé©æï¼ä¸ç¦æ®ãæç·æ°´ä½å¹³ç©©åæã"},
-        {label:"è¦éª¨è¨è",text:"é©åãå°å°è¼¸åºãââæä¸åéç¨å½±çãæä¸åå°æ±è¥¿ãææ³æ³èªªåºå£ãç­æèå¥®æçï¼å°±æ¯ä»å¤©æ¹åã"},
-        {label:"å¤©è æ´å¯",text:"ä»æ¥æ·±å±¤ä¸»é¡ï¼ãè¢«çè¦çæ¸´æãââè®èªå·±çåµä½è¢«ä¸çæ¥æ¶å°ï¼éåæ¸´ææ¯çå¯¦ä¸å¼å¾çã"},
-        {label:"æ©ç¾¯æé",text:"ä¸ç«è¼æï¼ä¸é©åå®å¤§è¨ç«ããææè©²è¦æ´ææçãéåå¿µé ­åèµ·æï¼è¼è¼æ¾ä¸å®å°±å¥½ã"},
-        {label:"èç¸æ°´ä¼´ä¾¶",text:"ä»å¤©è®åçå¤èªªè©±ï¼ä½ è² è²¬æ¥æ¶ââä»çæµåææ­£å¥½è½æ½¤æ¾¤ä½ çä¸ç«ä¹æ¥ã"},
-        {label:"èç²æ¨å­©å­",text:"ä»æ¥ééæé»åæ¨ï¼å­è¨å¯è½æ¯è¼éè¦è¢«ãæ¥ä½ããåçµ¦äºåéå¨å°æ³¨è®ç¾ï¼è½éå°±ç©©å®ã"}
+        {label:"情緒水位",text:"丁火溫柔滋養大山，像坐在窗邊有陽光照進來的舒適感，不焦慮。情緒水位平穩偏暖。"},
+        {label:"薦骨訊號",text:"適合「小小輸出」——拍一個過程影片、捏一個小東西、把想法說出口。等有興奮感的，就是今天方向。"},
+        {label:"天蠍洞察",text:"今日深層主題：「被看見的渴望」——讓自己的創作被世界接收到，這個渴望是真實且值得的。"},
+        {label:"摩羯提醒",text:"丁火輕柔，不適合定大計畫。「我應該要更有效率」這個念頭升起時，輕輕放下它就好。"},
+        {label:"與癸水伴侶",text:"今天讓先生多說話，你負責接收——他的流動感正好能潤澤你的丁火之日。"},
+        {label:"與甲木孩子",text:"今日酉金有點剋木，子蕨可能比較需要被「接住」。先給五分鐘全專注讚美，能量就穩定。"}
       ],
-      action:"æ¿èµ·ä¸åä½ æè¿åæ­¡çææï¼æ¸å® 5 åéã",
-      action_sub:"ä¸ç¨ååºä»éº¼ï¼å°±æ¯æ¸ãè¦éª¨æåæï¼å®èªå·±ç¥éæ¥ä¸ä¾è¦åä»éº¼ã"
+      action:"拿起一個你最近喜歡的材料，摸它 5 分鐘。",
+      action_sub:"不用做出什麼，就是摸。薦骨有反應，它自己知道接下來要做什麼。"
     },
     schedule:[
-      {time:"09:00â09:20",act:"é±è®æ©å ± + ç¢ºèªå°è¡æ½ç±¤",note:"é·è / åæ¶ ä»æ¥æ½ç±¤",energy:"æ¸éå¤§è¦ï¼ææ¡å¨å±"},
-      {time:"09:20â10:30",act:"è©¦ç© Claude Design",note:"ææä½æ²»ççæ¦å¿µè¼¸å¥é²å»",energy:"MG è¦éª¨åæå¼æ¢ç´¢"},
-      {time:"10:30â11:00",act:"éå",note:"æ£æ­¥ / çç / ä¼¸å±",energy:"æåå¤§å±±æ¥å°æ°£"},
-      {time:"11:00â13:00",act:"æä½æå",note:"é¶å æ ä¸²ç ï¼åªåææè¦ºé¸åªå",energy:"é£å·æµåï¼ååºä¾å°±æ¯è¼¸åº"},
-      {time:"13:00â14:30",act:"åé¤ + åä¼",note:"",energy:"å¤§å±±åé£½é»"},
-      {time:"14:30â17:00",act:"èªç±æ¢ç´¢",note:"æ²ç¹©è¦å / ä½åéæ´ç / ç ç©¶",energy:"é èè¦éª¨èµ°"},
-      {time:"17:00 å¾",act:"å®¶åº­æå",note:"",energy:"ç¸æ°´æ»æ½¤å¤§å±±"}
+      {time:"09:00–09:20",act:"閱讀早報 + 確認台股抽籤",note:"雷虎 / 合晶 今日抽籤",energy:"清醒大腦，掌握全局"},
+      {time:"09:20–10:30",act:"試玩 Claude Design",note:"把手作治療的概念輸入進去",energy:"MG 薦骨回應式探索"},
+      {time:"10:30–11:00",act:"運動",note:"散步 / 瑜珈 / 伸展",energy:"戊土大山接地氣"},
+      {time:"11:00–13:00",act:"手作時光",note:"陶土 或 串珠，哪個有感覺選哪個",energy:"食傷流動，做出來就是輸出"},
+      {time:"13:00–14:30",act:"午餐 + 午休",note:"",energy:"大山充飽電"},
+      {time:"14:30–17:00",act:"自由探索",note:"沖繩規劃 / 作品集整理 / 研究",energy:"順著薦骨走"},
+      {time:"17:00 後",act:"家庭時光",note:"",energy:"癸水滋潤大山"}
     ],
-    quote:"å¤§å±±ä¸éè¦æ¯å¤©ç§»åï¼\nå¥¹åªéè¦è®å°çæ±è¥¿å¨å¥¹èº«ä¸çé·ã\nä»å¤©ï¼ä½ å°±æ¯é£åº§æ¥ååç§çå±±ââ\nä¸æ¥èéè±ï¼åªæ¯å¥½å¥½å°ï¼æèã"
+    quote:"大山不需要每天移動，\n她只需要讓對的東西在她身上生長。\n今天，你就是那座接受光照的山——\n不急著開花，只是好好地，暖著。"
   }
 };
 
-// ââ æ³åçäºæ¸å®é è¨­ ââ
+// ── 想做的事清單預設 ──
 const DEFAULT_TODOS = [
-  "ä¿®çæé","æ´çä¸ä¸å¬å¸å¸³æ¶","æ©ç´è²çæ«å­éå°çä¸","æ´çé¢è·å¾çç©å",
-  "çå­¸æ ¡èå¸«çµ¦çæ¸","ç·´ç¿åºç¹¡","å»æ¾èå¸«æé¶","ç·´ç¿ä¸²ç ç ",
-  "é²è¡è²¡åè¦å","æ´æ°å±¥æ­·å±¥è¡¨","å¯«å¡ççµ¦å¤§å®¶","ç·´ç¿éå½±çååªå½±ç",
-  "æ´çå°ç³°å­çç©å·åæ¡é","ç¨ Claude AI åµå»ºå°ç³°å­çè¨æ¶ç¸æ¬",
-  "è©¦èè¨­è¨å¹¼åçæå·","çææ²æåæ­¡çå·¥ä½ï¼",
-  "éåä¸ä¸ç½ç²æçè¦å","è©ä¼°ç®åçåé è¨é±è²»",
-  "èçå¤§éçéé³åé¡","è¦åæ²ç¹©æé","è¦ååå§æé","æ´çå®¶è£¡çæ¤ç©"
+  "修理時鐘","整理一下公司帳戶","橘紅色的櫃子釘到牆上","整理離職後的物品",
+  "看學校老師給的書","練習刺繡","去找老師捏陶","練習串珠珠",
+  "進行財務規劃","更新履歷履表","寫卡片給大家","練習錄影片和剪影片",
+  "整理小糰子的玩具和桌遊","用 Claude AI 創建小糰子的記憶相本",
+  "試著設計幼兒的教具","看有沒有喜歡的工作？",
+  "重啟一丈罌粟果的規劃","評估目前的各項訂閱費",
+  "處理大門的隔音問題","規劃沖繩旅遊","規劃國內旅遊","整理家裡的植物"
 ];
 
-// ââ App state ââ
+// ── App state ──
 const dates = Object.keys(BRIEFINGS).sort().reverse();
 let currentIdx = 0;
 
@@ -381,7 +381,7 @@ function buildDateList(){
   dl.innerHTML = dates.map((d,i)=>{
     const b=BRIEFINGS[d], p=d.split('-');
     return `<button class="di${i===currentIdx?' active':''}" onclick="selectDate(${i})">
-      <span class="dim">${p[1]}æ${p[2]}æ¥ ${b.weekday}</span>
+      <span class="dim">${p[1]}月${p[2]}日 ${b.weekday}</span>
       <span class="dis">${b.ganzhi[2]}</span>
     </button>`;
   }).join('');
@@ -396,7 +396,7 @@ const LEAF_SM=`<svg width="24" height="24" viewBox="0 0 80 80" fill="none"><path
 
 const BRUSH=`<svg width="200" height="120" viewBox="0 0 200 120" fill="none"><path d="M10 80 C40 60 80 50 120 55 C160 60 180 40 195 20" stroke="#D8CCF0" stroke-width="2" stroke-linecap="round"/><path d="M5 100 C50 85 100 80 150 85 C170 88 185 75 198 60" stroke="#B4CFBE" stroke-width="1.5" stroke-linecap="round"/><circle cx="120" cy="55" r="3" fill="#EDE7F9" stroke="#A994C4" stroke-width="1"/><circle cx="80" cy="50" r="2" fill="#EDF5F0" stroke="#B4CFBE" stroke-width="1"/></svg>`;
 
-// ââ Bucket list logic ââ
+// ── Bucket list logic ──
 function getTodos(){
   try{ const s=localStorage.getItem('yen-todos'); return s?JSON.parse(s):null; }catch(e){return null;}
 }
@@ -417,10 +417,10 @@ function renderBucket(){
     li.className='bl-item'+(item.done?' done':'');
     li.draggable=true;
     li.dataset.idx=idx;
-    li.innerHTML=`<span class="bl-drag" title="ææ³æåº">â®â®</span>
+    li.innerHTML=`<span class="bl-drag" title="拖曳排序">⋮⋮</span>
       <input type="checkbox" class="bl-cb" ${item.done?'checked':''} onchange="toggleTodo(${item.id})">
       <span class="bl-text">${escHtml(item.text)}</span>
-      <button class="bl-del" onclick="delTodo(${item.id})" title="åªé¤">â</button>`;
+      <button class="bl-del" onclick="delTodo(${item.id})" title="刪除">✕</button>`;
     // drag events
     li.addEventListener('dragstart',e=>{li.classList.add('dragging');e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',idx);});
     li.addEventListener('dragend',()=>{li.classList.remove('dragging');document.querySelectorAll('.bl-item').forEach(el=>el.classList.remove('drag-over'));});
@@ -446,7 +446,7 @@ function renderBucket(){
   // progress
   const done=items.filter(x=>x.done).length;
   const prog=document.getElementById('blProg');
-  if(prog) prog.textContent=`å·²å®æ ${done} / ${items.length} é `;
+  if(prog) prog.textContent=`已完成 ${done} / ${items.length} 項`;
 }
 
 function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -471,18 +471,18 @@ function addTodo(){
   renderBucket();
 }
 
-// ââ Main render ââ
+// ── Main render ──
 function render(){
   const dk=dates[currentIdx], b=BRIEFINGS[dk];
-  const p=dk.split('-'), dl=`${p[0]}å¹´${p[1]}æ${p[2]}æ¥`;
+  const p=dk.split('-'), dl=`${p[0]}年${p[1]}月${p[2]}日`;
 
   const aiCards=b.ai.map(item=>`
     <div class="card">
       <div class="ctags">${item.tags.map(([t,c])=>tag(t,c)).join('')}</div>
       <div class="cttl">${item.title}</div>
       <div class="cbody">${item.body}</div>
-      <div class="cyou"><div class="cyou-lbl">ä½ çæç¨</div>${item.you}</div>
-      <a class="clink" href="${item.url}" target="_blank">é±è®å¨æ â</a>
+      <div class="cyou"><div class="cyou-lbl">你的應用</div>${item.you}</div>
+      <a class="clink" href="${item.url}" target="_blank">閱讀全文 →</a>
     </div>`).join('');
 
   const desCards=`<div class="grid2">${b.design.map(item=>`
@@ -490,42 +490,42 @@ function render(){
       <div class="ctags">${item.tags.map(([t,c])=>tag(t,c)).join('')}</div>
       <div class="cttl">${item.title}</div>
       <div class="cbody">${item.body}</div>
-      <div class="cyou"><div class="cyou-lbl">ä½ çæ©æ</div>${item.you}</div>
-      <a class="clink" href="${item.url}" target="_blank">é±è®å¨æ â</a>
+      <div class="cyou"><div class="cyou-lbl">你的機會</div>${item.you}</div>
+      <a class="clink" href="${item.url}" target="_blank">閱讀全文 →</a>
     </div>`).join('')}</div>`;
 
   const alerts=b.stock_alert.length?`
     <div class="alert-box">
-      <div class="alert-ico">â¡</div>
-      <div><div class="alert-lbl">ä»æ¥æ½ç±¤æé</div>
+      <div class="alert-ico">⚡</div>
+      <div><div class="alert-lbl">今日抽籤提醒</div>
       ${b.stock_alert.map(a=>`<div class="alert-item">${a}</div>`).join('')}</div>
     </div>`:'' ;
 
-  const srows=b.stock_watch.map(s=>`<tr><td>${s.name}</td><td><span class="chip chip-${s.chip}">å¾æ¥è©¢</span></td><td style="font-size:15px;color:var(--t3)">${s.note}</td></tr>`).join('');
+  const srows=b.stock_watch.map(s=>`<tr><td>${s.name}</td><td><span class="chip chip-${s.chip}">待查詢</span></td><td style="font-size:15px;color:var(--t3)">${s.note}</td></tr>`).join('');
 
   const eitems=b.energy.items.map(e=>`<div class="en-item"><div class="en-lbl">${e.label}</div><div class="en-txt">${e.text}</div></div>`).join('');
 
   const srows2=b.schedule.map(s=>`<tr><td class="st">${s.time}</td><td><div class="sa">${s.act}</div>${s.note?`<div class="sn">${s.note}</div>`:''}</td><td class="se">${s.energy}</td></tr>`).join('');
 
-  const calNote=b.calendar_note?`<div class="warn">ð ${b.calendar_note}</div>`:'';
+  const calNote=b.calendar_note?`<div class="warn">📌 ${b.calendar_note}</div>`:'';
   const qlines=b.quote.split('\n').join('<br>');
 
   document.getElementById('pageContent').innerHTML=`
     <div class="c-hdr">
       <div class="hdr-deco">${BRUSH}</div>
-      <div class="hdr-eye">DAILY BRIEFING Â· æ¸ä½å·è¡é·</div>
-      <div class="hdr-title">Yen çæ¯æ¥æ©å ±</div>
-      <div class="hdr-date">${dl}ã${b.weekday}</div>
+      <div class="hdr-eye">DAILY BRIEFING · 數位執行長</div>
+      <div class="hdr-title">Yen 的每日早報</div>
+      <div class="hdr-date">${dl}　${b.weekday}</div>
       <div class="hdr-pills">${b.ganzhi.map(g=>`<span class="hdr-pill">${g}</span>`).join('')}</div>
     </div>
 
     <nav class="sec-nav">
-      <button class="sn-btn" onclick="scrollToEl('s-ai')">ð¤ AI å¥½ç©</button>
-      <button class="sn-btn" onclick="scrollToEl('s-design')">ð¨ è¨­è¨åæ</button>
-      <button class="sn-btn" onclick="scrollToEl('s-stock')">ð å°è¡</button>
-      <button class="sn-btn" onclick="scrollToEl('s-energy')">ð® è½éè§£æ</button>
-      <button class="sn-btn" onclick="scrollToEl('s-schedule')">ð è¡ç¨</button>
-      <button class="sn-btn" onclick="scrollToEl('s-bucket')">â¨ æ³åçäº</button>
+      <button class="sn-btn" onclick="scrollToEl('s-ai')">🤖 AI 好物</button>
+      <button class="sn-btn" onclick="scrollToEl('s-design')">🎨 設計動態</button>
+      <button class="sn-btn" onclick="scrollToEl('s-stock')">📈 台股</button>
+      <button class="sn-btn" onclick="scrollToEl('s-energy')">🔮 能量解析</button>
+      <button class="sn-btn" onclick="scrollToEl('s-schedule')">📅 行程</button>
+      <button class="sn-btn" onclick="scrollToEl('s-bucket')">✨ 想做的事</button>
     </nav>
 
     <div class="article">
@@ -533,9 +533,9 @@ function render(){
       <div class="section" id="s-ai">
         <div class="sec-hdr">
           <div class="sec-ico" style="background:var(--orchid-pale)">${LEAF_SM}</div>
-          <span class="sec-num">ä¸</span>
-          <span class="sec-ttl">AI å¥½ç©å ±å</span>
-          <span class="sec-meta">è¨­è¨å¸«è¦è§ Â· ${b.ai.length} å</span>
+          <span class="sec-num">一</span>
+          <span class="sec-ttl">AI 好物報告</span>
+          <span class="sec-meta">設計師視角 · ${b.ai.length} 則</span>
         </div>
         ${aiCards}
       </div>
@@ -545,9 +545,9 @@ function render(){
           <div class="sec-ico" style="background:var(--amber-pale)">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3C8 3 5 6 5 10C5 15 9 18 12 21C15 18 19 15 19 10C19 6 16 3 12 3Z" fill="var(--amber-pale)" stroke="var(--amber-lt)" stroke-width="1.5"/><circle cx="12" cy="10" r="2" fill="var(--amber-lt)"/></svg>
           </div>
-          <span class="sec-num">äº</span>
-          <span class="sec-ttl">è¨­è¨çåæ</span>
-          <span class="sec-meta">è¶¨å¢ Â· ${b.design.length} å</span>
+          <span class="sec-num">二</span>
+          <span class="sec-ttl">設計界動態</span>
+          <span class="sec-meta">趨勢 · ${b.design.length} 則</span>
         </div>
         ${desCards}
       </div>
@@ -557,14 +557,14 @@ function render(){
           <div class="sec-ico" style="background:var(--sage-pale)">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="14" width="3" height="6" rx="1" fill="var(--sage-lt)"/><rect x="9" y="10" width="3" height="10" rx="1" fill="var(--sage-lt)"/><rect x="14" y="6" width="3" height="14" rx="1" fill="var(--sage-lt)"/><rect x="19" y="9" width="3" height="11" rx="1" fill="var(--sage-lt)"/></svg>
           </div>
-          <span class="sec-num">ä¸</span>
-          <span class="sec-ttl">å°è¡æé</span>
+          <span class="sec-num">三</span>
+          <span class="sec-ttl">台股提醒</span>
         </div>
         ${alerts}
         <div class="card">
-          <div style="font-family:var(--serif);font-size:20px;font-weight:500;color:var(--ink);margin-bottom:6px">éé»æ¨çåæ</div>
-          <div style="font-size:15px;color:var(--t3);margin-bottom:14px">å³æè¡å¹è«è³ <a href="https://tw.stock.yahoo.com" target="_blank">Yahoo è¡å¸</a> æå¸å App æ¥è©¢</div>
-          <table class="stbl"><thead><tr><th>æ¨ç</th><th>ä»æ¥çæ</th><th>åè¨»</th></tr></thead><tbody>${srows}</tbody></table>
+          <div style="font-family:var(--serif);font-size:20px;font-weight:500;color:var(--ink);margin-bottom:6px">重點標的動態</div>
+          <div style="font-size:15px;color:var(--t3);margin-bottom:14px">即時股價請至 <a href="https://tw.stock.yahoo.com" target="_blank">Yahoo 股市</a> 或券商 App 查詢</div>
+          <table class="stbl"><thead><tr><th>標的</th><th>今日狀態</th><th>備註</th></tr></thead><tbody>${srows}</tbody></table>
         </div>
       </div>
 
@@ -573,18 +573,18 @@ function render(){
           <div class="sec-ico" style="background:var(--orchid-pale)">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 5C11 5 8 8 8 12C8 16 11 19 15 19C12 17.5 10.5 15 10.5 12C10.5 9 12 6.5 15 5Z" fill="var(--orchid-pale)" stroke="var(--orchid-lt)" stroke-width="1.5"/><circle cx="18" cy="7" r="1.5" fill="var(--orchid-lt)"/></svg>
           </div>
-          <span class="sec-num">å</span>
-          <span class="sec-ttl">ä»æ¥è½éè§£æ</span>
-          <span class="sec-meta">å¨æ¯äº¤åå ±å</span>
+          <span class="sec-num">四</span>
+          <span class="sec-ttl">今日能量解析</span>
+          <span class="sec-meta">全息交叉報告</span>
         </div>
         <div class="en-wrap">
           <div class="en-deco">${ORCHID}</div>
-          <div class="gz-lbl">ä»æ¥å¹²æ¯</div>
+          <div class="gz-lbl">今日干支</div>
           <div class="gz-disp">${b.energy.ganzhi}</div>
           <div class="gz-hint">${b.energy.hint}</div>
           <div class="en-grid">${eitems}</div>
           <div class="act-box">
-            <div class="act-lbl">ä»æ¥è¡åå¾®çµæ§</div>
+            <div class="act-lbl">今日行動微結構</div>
             <div class="act-txt">${b.energy.action}</div>
             <div class="act-sub">${b.energy.action_sub}</div>
           </div>
@@ -596,49 +596,49 @@ function render(){
           <div class="sec-ico" style="background:var(--sage-pale)">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="6" width="16" height="14" rx="2" stroke="var(--sage-lt)" stroke-width="1.5" fill="none"/><path d="M4 10 L20 10" stroke="var(--sage-lt)" stroke-width="1.5"/><path d="M8 4 L8 8" stroke="var(--sage-lt)" stroke-width="1.5" stroke-linecap="round"/><path d="M16 4 L16 8" stroke="var(--sage-lt)" stroke-width="1.5" stroke-linecap="round"/></svg>
           </div>
-          <span class="sec-num">äº</span>
-          <span class="sec-ttl">ä»æ¥å»ºè­°è¡ç¨</span>
+          <span class="sec-num">五</span>
+          <span class="sec-ttl">今日建議行程</span>
         </div>
         ${calNote}
         <div class="card">
-          <table class="sch-tbl"><thead><tr><th>æé</th><th>æ´»å</th><th>è½éèªªæ</th></tr></thead><tbody>${srows2}</tbody></table>
+          <table class="sch-tbl"><thead><tr><th>時間</th><th>活動</th><th>能量說明</th></tr></thead><tbody>${srows2}</tbody></table>
         </div>
       </div>
 
       <div class="section" id="s-quote">
         <div class="sec-hdr">
-          <span class="sec-num">â</span>
-          <span class="sec-ttl">ä»æ¥çµ¦ Yen çä¸å¥è©±</span>
+          <span class="sec-num">—</span>
+          <span class="sec-ttl">今日給 Yen 的一句話</span>
         </div>
         <div class="qt-wrap">
           <div class="qt-deco">${ORCHID}</div>
           <div class="qt-eye">TODAY'S MESSAGE</div>
           <div class="qt-txt">${qlines}</div>
-          <div class="qt-from">by Claude Â· æ¸ä½å·è¡é·</div>
+          <div class="qt-from">by Claude · 數位執行長</div>
         </div>
       </div>
 
       <div class="section" id="s-bucket">
         <div class="sec-hdr">
-          <div class="sec-ico" style="background:var(--orchid-pale);font-size:20px">â¨</div>
-          <span class="sec-num">å­</span>
-          <span class="sec-ttl">æ³åçäº</span>
+          <div class="sec-ico" style="background:var(--orchid-pale);font-size:20px">✨</div>
+          <span class="sec-num">六</span>
+          <span class="sec-ttl">想做的事</span>
           <span class="sec-meta" id="blProg"></span>
         </div>
         <div class="bucket-wrap">
           <div class="bl-add">
-            <input class="bl-inp" id="blInp" type="text" placeholder="æ°å¢ä¸ä»¶æ³åçäºâ¦"
+            <input class="bl-inp" id="blInp" type="text" placeholder="新增一件想做的事…"
               onkeydown="if(event.key==='Enter')addTodo()">
-            <button class="bl-add-btn" onclick="addTodo()">ï¼ æ°å¢</button>
+            <button class="bl-add-btn" onclick="addTodo()">＋ 新增</button>
           </div>
           <ul class="bl-list" id="blList"></ul>
-          <div class="bl-hint" id="blHint">éæ²ææ¸å®é ç®ï¼å¾ä¸æ¹æ°å¢ç¬¬ä¸ä»¶æ³åçäºå§ï¼</div>
-          <div style="font-size:14px;color:var(--t3);margin-top:1rem;text-align:center">ð¡ ææ³å·¦å´ â®â®</span> ä»æ¥å®æ &nbsp;Â·&nbsp; å³å´ â å¯åªé¤</div>
+          <div class="bl-hint" id="blHint">還沒有清單項目，從上方新增第一件想做的事吧！</div>
+          <div style="font-size:14px;color:var(--t3);margin-top:1rem;text-align:center">💡 拖曳左側 ⋮⋮</span> 他来完成 &nbsp;·&nbsp; 右側 ✕ 可刪除</div>
         </div>
       </div>
 
       <div class="footer">
-        å°è¡è³è¨è«ä»¥å®æ¹å¹³å°çºæº &nbsp;Â·&nbsp; å½çè§£æåä¾å§å¨åè &nbsp;Â·&nbsp; æ©å ± by Claude
+        台股資訊請以官方平台為準 &nbsp;·&nbsp; 命理解析僅供內在參考 &nbsp;·&nbsp; 早報 by Claude
       </div>
     </div>`;
 
